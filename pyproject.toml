@@ -12,6 +12,7 @@ flake8 = "^6.1.0"
 python-dotenv = "^1.0.0"
 django = "^3.2.3"
 gunicorn = "^21.2.0"
+dj-database-url = "^2.1.0"
 
 
 [build-system]

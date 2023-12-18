@@ -2,4 +2,4 @@ install:
 	poetry install
 
 start:
-	poetry run python manage.py runservers
+	poetry run python manage.py runserver

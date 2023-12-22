@@ -67,6 +67,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "task_manager.urls"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 TEMPLATES = [
     {

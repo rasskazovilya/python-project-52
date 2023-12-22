@@ -38,8 +38,15 @@
         </nav>
         {% endblock %}
     <div class="container wrapper flex-grow-1">
-        {% block content %}
-        {% endblock %}
+      {% if messages %}
+        {% for message in messages %}
+          <div {% if message.tags %} class="my-2 alert alert-{{ message.tags }}" role="alert" {% endif %}>
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
     </div>
     <footer>
         <div class="container my-5 pt-4 border-top">

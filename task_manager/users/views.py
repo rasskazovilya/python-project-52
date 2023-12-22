@@ -1,19 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView
+from django.urls import reverse_lazy
 
 from task_manager.users.models import User
+from task_manager.users.forms import UserCreateForm
 
 
-class UsersView(View):
-    template_name = "users.html"
+class UserListView(ListView):
+    template_name = "user-list.html"
+    model = User
+    paginate_by = 10
+    context_object_name = "users"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.all()
-        return context
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+class UserCreateView(CreateView):
+    template_name = "user_create.html"
+    success_url = reverse_lazy("user_list")
+    form_class = UserCreateForm
+
+
+class UserUpdateView(UpdateView):
+    template_name = "user_create.html"
+    model = User
+    success_url = reverse_lazy("user_list")
+    form_class = UserCreateForm
+
+
+class UserDeleteView(DeleteView):
+    template_name = "confirm_delete.html"
+    model = User
+    success_url = reverse_lazy("user_list")

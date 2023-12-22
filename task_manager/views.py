@@ -1,5 +1,8 @@
-from django.shortcuts import render, reverse
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.utils.translation import gettext
 
 
 def index(request):
@@ -9,8 +12,12 @@ def index(request):
     )
 
 
-class UserLoginView(LoginView):
+class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = "login.html"
+    success_message = gettext(
+        "Successfully signed in. Greetings, %(username)s!"
+    )
+    success_url = reverse_lazy("home")
 
 
 class UserLogoutView(LogoutView):

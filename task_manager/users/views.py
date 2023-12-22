@@ -11,7 +11,7 @@ from task_manager.users.forms import UserCreateForm
 
 
 class UserListView(ListView):
-    template_name = "user-list.html"
+    template_name = "user_list.html"
     model = User
     paginate_by = 10
     context_object_name = "users"

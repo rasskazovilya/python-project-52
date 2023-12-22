@@ -3,8 +3,39 @@
 
 {% block content %}
 <div>
-    <p>
-        User list
-    </p>
+    <table class="table table-striped">
+        <thead>
+           <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Created at</th>
+            <th></td>
+           </tr> 
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>
+                        {{ user.id }}
+                    </td>
+                    <td>
+                        {{ user.username }}
+                    </td>
+                    <td>
+                        {{ user.first_name }} {{ user.last_name }}
+                    </td>
+                    <td>
+                        {{ user.created_at }}
+                    </td>
+                    <td>
+                        <a href="">Изменить</a>
+                        <br>
+                        <a href="">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

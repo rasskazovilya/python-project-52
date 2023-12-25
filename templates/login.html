@@ -15,7 +15,7 @@
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input class="btn btn-danger" type="submit" value="Login">
+    <input class="btn btn-success" type="submit" value="Login">
     <input class="btn btn-primary" type="button" value="{% trans 'Cancel' %}" onclick="history.back();">
 </form>
 {% endblock %}

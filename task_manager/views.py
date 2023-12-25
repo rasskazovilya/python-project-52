@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
@@ -21,4 +22,6 @@ class UserLoginView(SuccessMessageMixin, LoginView):
 
 
 class UserLogoutView(LogoutView):
-    template_name = "logout.html"
+    def dispatch(self, request, *args, **kwargs):
+        messages.info(request, gettext("Successfully logged out. See you!"))
+        return super().dispatch(request, *args, **kwargs)

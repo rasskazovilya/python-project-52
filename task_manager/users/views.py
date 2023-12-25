@@ -42,7 +42,16 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "confirm_delete.html"
+    login_url = reverse_lazy("login")
     model = User
     success_url = reverse_lazy("user_list")
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.error(
+            request,
+            gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+            extra_tags="danger",
+        )
+        return super().dispatch(request, *args, **kwargs)

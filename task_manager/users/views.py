@@ -8,6 +8,9 @@ from django.urls import reverse_lazy
 
 from task_manager.users.models import User
 from task_manager.users.forms import UserCreateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.utils.translation import gettext
 
 
 class UserListView(ListView):
@@ -23,11 +26,20 @@ class UserCreateView(CreateView):
     form_class = UserCreateForm
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "user_create.html"
+    login_url = reverse_lazy("login")
     model = User
     success_url = reverse_lazy("user_list")
     form_class = UserCreateForm
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.error(
+            request,
+            gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+            extra_tags="danger",
+        )
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UserDeleteView(DeleteView):

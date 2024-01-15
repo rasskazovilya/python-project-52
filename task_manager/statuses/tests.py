@@ -39,3 +39,25 @@ class StatusTestCase(TestCase):
         response = self.client.get(reverse_lazy("status_list"))
         for status in self.test_statuses:
             self.assertContains(response, status["name"])
+
+    def test_status_add(self):
+        # check if unathorized user can not create statuses
+        response = self.client.post(
+            reverse_lazy("create_status"), data=self.test_status, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+        response = self.client.post(
+            reverse_lazy("create_status"), data=self.test_status, format="json"
+        )
+        # check that logged user is redirected to status list page
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("status_list"))
+
+        # check if new status is added
+        new_item = Status.objects.last()
+        self.assertEqual(new_item.name, self.test_status["name"])

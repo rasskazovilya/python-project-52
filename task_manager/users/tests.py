@@ -118,3 +118,44 @@ class UserListTestCase(TestCase):
         response = self.client.post(edit_url, data=data)
         self.assertTrue(User.objects.filter(username="New Test_1").exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
+
+    def test_delete_user(self):
+        delete_url = reverse_lazy("del_user", kwargs={"pk": 1})
+        other_delete_url = reverse_lazy("del_user", kwargs={"pk": 4})
+        # no logged user
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # try to login with user not in db
+        self.client.login(
+            username=self.test_user["username"],
+            password=self.test_user["password1"],
+        )
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login with user in db
+        first_user = User.objects.first()
+        self.client.force_login(first_user)
+
+        ## try to get edit page for another user
+        response = self.client.get(other_delete_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy("user_list"))
+        ## check if error message about not authorized user is in place
+        response = self.client.get(other_delete_url, follow=True)
+        self.assertContains(
+            response,
+            "У вас нет прав для удаления другого пользователя.",
+        )
+
+        ## get delete page for current user
+        response = self.client.get(delete_url)
+        self.assertEqual(response.status_code, 200)
+
+        ## delete current user
+        response = self.client.post(delete_url)
+        self.assertFalse(User.objects.filter(username="New Test_1").exists())
+        self.assertRedirects(response, reverse_lazy("user_list"))

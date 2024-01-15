@@ -31,6 +31,11 @@ class StatusTestCase(TestCase):
 
     def test_status_list(self):
         response = self.client.get(reverse_lazy("status_list"))
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
 
+        user = User.objects.first()
+        self.client.force_login(user)
+        response = self.client.get(reverse_lazy("status_list"))
         for status in self.test_statuses:
             self.assertContains(response, status["name"])

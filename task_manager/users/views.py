@@ -24,6 +24,7 @@ class UserCreateView(CreateView):
     template_name = "user_create.html"
     success_url = reverse_lazy("user_list")
     form_class = UserCreateForm
+    extra_context = {"title": gettext("Создание пользователя")}
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
@@ -32,6 +33,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     success_url = reverse_lazy("user_list")
     form_class = UserCreateForm
+    extra_context = {"title": gettext("Изменение пользователя")}
 
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -57,6 +59,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy("login")
     model = User
     success_url = reverse_lazy("user_list")
+    extra_context = {"title": gettext("Удаление пользователя")}
 
     def dispatch(self, request, *args, **kwargs):
         messages.error(

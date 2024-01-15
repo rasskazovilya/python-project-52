@@ -61,10 +61,20 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("user_list")
     extra_context = {"title": gettext("Удаление пользователя")}
 
-    def dispatch(self, request, *args, **kwargs):
-        messages.error(
-            request,
-            gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
-            extra_tags="danger",
-        )
-        return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+                extra_tags="danger",
+            )
+            return redirect(self.login_url)
+        same_user = self.model.objects.get(pk=kwargs["pk"])
+        if self.request.user != same_user:
+            messages.error(
+                self.request,
+                gettext("У вас нет прав для изменения другого пользователя."),
+                extra_tags="danger",
+            )
+            return redirect(self.success_url)
+        return super().dispatch(*args, **kwargs)

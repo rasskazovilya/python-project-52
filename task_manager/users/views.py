@@ -73,7 +73,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         if self.request.user != same_user:
             messages.error(
                 self.request,
-                gettext("У вас нет прав для изменения другого пользователя."),
+                gettext("У вас нет прав для удаления другого пользователя."),
                 extra_tags="danger",
             )
             return redirect(self.success_url)

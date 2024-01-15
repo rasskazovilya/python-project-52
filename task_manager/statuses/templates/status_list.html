@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div>
+    <table class="table table-striped">
+        <thead>
+           <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Created at</th>
+            <th></td>
+           </tr> 
+        </thead>
+        <tbody>
+            {% for status in statuses %}
+                <tr>
+                    <td>
+                        {{ status.id }}
+                    </td>
+                    <td>
+                        {{ status.name }}
+                    </td>
+                    <td>
+                        {{ status.created_at }}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_status' status.id %}">Изменить</a>
+                        <br>
+                        <a href="{% url 'del_status' status.id %}">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

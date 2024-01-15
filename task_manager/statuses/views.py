@@ -9,11 +9,22 @@ from .models import Status
 
 
 # Create your views here.
-class StatusListView(ListView):
+class StatusListView(LoginRequiredMixin, ListView):
     template_name = "status_list.html"
+    login_url = reverse_lazy("login")
     model = Status
     context_object_name = "statuses"
+    extra_context = {"title": gettext("Статусы")}
 
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+                extra_tags="danger",
+            )
+            return redirect(self.login_url)
+        return super().handle_no_permission()
 
 class StatusCreateView(CreateView):
     pass

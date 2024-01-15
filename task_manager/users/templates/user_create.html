@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block content %}
-<h1>{% translate 'Регистрация' %}</h1>
+<h1 class="my-4">{{ title }}</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}

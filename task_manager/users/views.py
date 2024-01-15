@@ -16,6 +16,7 @@ from django.utils.translation import gettext
 class UserListView(ListView):
     template_name = "user_list.html"
     model = User
+    ordering = "id"
     paginate_by = 10
     context_object_name = "users"
 

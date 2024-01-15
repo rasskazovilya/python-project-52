@@ -7,7 +7,7 @@
             "first_name": "Test_first_name_0",
             "last_name": "Test_last_name_0",
             "password": "pass0",
-            "created_at": "1900-01-01T00:00:00"
+            "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
@@ -18,7 +18,7 @@
             "first_name": "Test_first_name_1",
             "last_name": "Test_last_name_1",
             "password": "pass1",
-            "created_at": "1900-01-01T00:00:00"
+            "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
@@ -29,7 +29,7 @@
             "first_name": "Test_first_name_2",
             "last_name": "Test_last_name_2",
             "password": "pass2",
-            "created_at": "1900-01-01T00:00:00"
+            "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
@@ -40,7 +40,7 @@
             "first_name": "Test_first_name_3",
             "last_name": "Test_last_name_3",
             "password": "pass3",
-            "created_at": "1900-01-01T00:00:00"
+            "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
@@ -51,7 +51,7 @@
             "first_name": "Test_first_name_4",
             "last_name": "Test_last_name_4",
             "password": "pass4",
-            "created_at": "1900-01-01T00:00:00"
+            "created_at": "1900-01-01T00:00:00Z"
         }
     }
 ]

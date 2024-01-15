@@ -29,6 +29,7 @@ class UserListTestCase(TestCase):
                 "password2": f"pass{i}",
             }
             self.test_users.append(user)
+        return super().setUp()
 
     def test_user_list(self):
         response = self.client.get(

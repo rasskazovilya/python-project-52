@@ -89,3 +89,26 @@ class StatusTestCase(TestCase):
         self.assertEqual(edited_status.name, "Done")
         self.assertNotEqual(edited_status.name, "Test_1")
 
+    def test_delete_status(self):
+        del_url = reverse_lazy("del_status", kwargs={"pk": 1})
+        deleted_status = Status.objects.get(id=1)
+
+        # check if unathorized user can not edit statuses
+        response = self.client.post(
+            del_url, data=self.test_status, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+        # delete status
+        response = self.client.post(del_url, follow=True)
+        # check if redirect is correct and success message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("status_list"))
+        self.assertContains(response, "Статус успешно удален.")
+
+        # check if status has been deleted
+        self.assertNotIn(deleted_status, Status.objects.all())

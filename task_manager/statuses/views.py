@@ -67,5 +67,25 @@ class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super().handle_no_permission()
 
 
-class StatusDeleteView(DeleteView):
-    pass
+class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    template_name = "confirm_delete.html"
+    login_url = reverse_lazy("login")
+    success_url = reverse_lazy("status_list")
+    success_message = gettext("Статус успешно удален.")
+    model = Status
+    extra_context = {"title": gettext("Удалить статус")}
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+                extra_tags="danger",
+            )
+            return redirect(self.login_url)
+        return super().handle_no_permission()
+
+    def delete(self, *args, **kwargs):
+        response = super().delete(*args, **kwargs)
+        messages.success(self.request, self.success_message)
+        return response

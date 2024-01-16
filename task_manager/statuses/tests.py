@@ -40,7 +40,7 @@ class StatusTestCase(TestCase):
         for status in self.test_statuses:
             self.assertContains(response, status["name"])
 
-    def test_status_add(self):
+    def test_add_status(self):
         # check if unathorized user can not create statuses
         response = self.client.post(
             reverse_lazy("create_status"), data=self.test_status, format="json"

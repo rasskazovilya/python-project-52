@@ -10,6 +10,7 @@ from task_manager.users.models import User
 from task_manager.users.forms import UserCreateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext
 
 
@@ -21,18 +22,20 @@ class UserListView(ListView):
     context_object_name = "users"
 
 
-class UserCreateView(CreateView):
+class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = "user_create.html"
     success_url = reverse_lazy("user_list")
+    success_message = gettext("Пользователь успешно зарегистрирован.")
     form_class = UserCreateForm
     extra_context = {"title": gettext("Создание пользователя")}
 
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "user_create.html"
     login_url = reverse_lazy("login")
     model = User
     success_url = reverse_lazy("user_list")
+    success_message = gettext("Пользователь успешно изменен.")
     form_class = UserCreateForm
     extra_context = {"title": gettext("Изменение пользователя")}
 
@@ -55,11 +58,12 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return super().dispatch(*args, **kwargs)
 
 
-class UserDeleteView(LoginRequiredMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
     login_url = reverse_lazy("login")
     model = User
     success_url = reverse_lazy("user_list")
+    success_message = gettext("Пользователь успешно удален.")
     extra_context = {"title": gettext("Удаление пользователя")}
 
     def dispatch(self, *args, **kwargs):
@@ -79,3 +83,8 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
             )
             return redirect(self.success_url)
         return super().dispatch(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        response = super().delete(*args, **kwargs)
+        messages.success(self.request, self.success_message)
+        return response

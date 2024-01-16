@@ -61,3 +61,31 @@ class StatusTestCase(TestCase):
         # check if new status is added
         new_item = Status.objects.last()
         self.assertEqual(new_item.name, self.test_status["name"])
+
+    def test_edit_status(self):
+        edit_url = reverse_lazy("edit_status", kwargs={"pk": 1})
+
+        # check if unathorized user can not edit statuses
+        response = self.client.post(
+            edit_url, data=self.test_status, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+        # change status name
+        response = self.client.post(
+            edit_url, data=self.test_status, format="json", follow=True
+        )
+        # check if redirect is correct and success message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("status_list"))
+        self.assertContains(response, "Статус успешно изменен.")
+
+        # check if status has changed
+        edited_status = Status.objects.get(id=1)
+        self.assertEqual(edited_status.name, "Done")
+        self.assertNotEqual(edited_status.name, "Test_1")
+

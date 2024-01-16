@@ -32,7 +32,7 @@ class StatusCreateView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("login")
     success_url = reverse_lazy("status_list")
     model = Status
-    extra_context = {"title": gettext("Создать статус")}
+    extra_context = {"title": gettext("Создание статуса")}
     fields = ["name"]
 
     def handle_no_permission(self):

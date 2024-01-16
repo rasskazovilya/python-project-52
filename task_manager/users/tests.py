@@ -43,16 +43,20 @@ class UserListTestCase(TestCase):
 
     def test_add_user(self):
         response = self.client.post(
-            reverse_lazy("signup"), data=self.test_user, format="json"
+            reverse_lazy("signup"),
+            data=self.test_user,
+            format="json",
+            follow=True,
         )
 
-        self.assertEqual(response.status_code, 302, "Status code is not 302")
+        self.assertEqual(response.status_code, 200)
 
         new_user = User.objects.last()
         self.assertIsInstance(new_user, User)
         self.assertEqual(new_user.username, "JohnDoe")
         self.assertEqual(new_user.pk, 6)
         self.assertTrue(new_user.check_password("secure_password"))
+        self.assertContains(response, "Пользователь успешно зарегистрирован.")
 
     def test_password_not_confirmed(self):
         test_user_wrong_password = self.test_user.copy()
@@ -116,9 +120,10 @@ class UserListTestCase(TestCase):
             "password1": f"new_pass1",
             "password2": f"new_pass1",
         }
-        response = self.client.post(edit_url, data=data)
+        response = self.client.post(edit_url, data=data, follow=True)
         self.assertTrue(User.objects.filter(username="New Test_1").exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
+        self.assertContains(response, "Пользователь успешно изменен.")
 
     def test_delete_user(self):
         delete_url = reverse_lazy("del_user", kwargs={"pk": 1})
@@ -157,6 +162,7 @@ class UserListTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
         ## delete current user
-        response = self.client.post(delete_url)
+        response = self.client.post(delete_url, follow=True)
         self.assertFalse(User.objects.filter(username="New Test_1").exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
+        self.assertContains(response, "Пользователь успешно удален.")

@@ -94,9 +94,7 @@ class StatusTestCase(TestCase):
         deleted_status = Status.objects.get(id=1)
 
         # check if unathorized user can not edit statuses
-        response = self.client.post(
-            del_url, data=self.test_status, format="json"
-        )
+        response = self.client.post(del_url)
         self.assertEqual(302, response.status_code)
         self.assertRedirects(response, reverse_lazy("login"))
 

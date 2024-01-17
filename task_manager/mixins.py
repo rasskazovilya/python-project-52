@@ -3,6 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
+from django.views.generic.detail import SingleObjectMixin
+from task_manager.users.models import User
 
 
 class LoginRequiredMsgMixin(LoginRequiredMixin):
@@ -22,3 +24,28 @@ class LoginRequiredMsgMixin(LoginRequiredMixin):
             )
             return redirect(self.login_url)
         return False
+
+
+class SameUserCheckMixin(SingleObjectMixin):
+    model = User
+    same_user_error_message = (
+        "У вас нет прав для изменения/удаления другого пользователя."
+    )
+    success_url = reverse_lazy("user_list")
+
+    def dispatch(self, *args, **kwargs):
+        if self.handle_no_permission():
+            return redirect(self.login_url)
+        same_user = self.get_same_user(pk=kwargs["pk"])
+        if self.request.user != same_user:
+            messages.error(
+                self.request,
+                self.same_user_error_message,
+                extra_tags="danger",
+            )
+            return redirect(self.success_url)
+        return super().dispatch(*args, **kwargs)
+
+    def get_same_user(self):
+        # This method should be overridden in the child classes of this MixIn
+        raise NotImplementedError()

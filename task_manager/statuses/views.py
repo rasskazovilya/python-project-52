@@ -12,7 +12,6 @@ from task_manager.mixins import LoginRequiredMsgMixin
 # Create your views here.
 class StatusListView(LoginRequiredMsgMixin, ListView):
     template_name = "status_list.html"
-    login_url = reverse_lazy("login")
     model = Status
     context_object_name = "statuses"
     extra_context = {"title": gettext("Статусы")}
@@ -20,7 +19,6 @@ class StatusListView(LoginRequiredMsgMixin, ListView):
 
 class StatusCreateView(LoginRequiredMsgMixin, CreateView):
     template_name = "status_create.html"
-    login_url = reverse_lazy("login")
     success_url = reverse_lazy("status_list")
     model = Status
     extra_context = {"title": gettext("Создание статуса")}
@@ -29,7 +27,6 @@ class StatusCreateView(LoginRequiredMsgMixin, CreateView):
 
 class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "status_create.html"
-    login_url = reverse_lazy("login")
     success_url = reverse_lazy("status_list")
     success_message = gettext("Статус успешно изменен.")
     model = Status
@@ -39,7 +36,6 @@ class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 
 class StatusDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
-    login_url = reverse_lazy("login")
     success_url = reverse_lazy("status_list")
     success_message = gettext("Статус успешно удален.")
     model = Status

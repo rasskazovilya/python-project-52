@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 # Create your tests here.
 class UserListTestCase(TestCase):
     fixtures = ["users.json"]
+    login_url = reverse_lazy("login")
 
     def setUp(self):
         self.test_user = {
@@ -82,7 +83,7 @@ class UserListTestCase(TestCase):
         # no logged user
         response = self.client.get(edit_url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy("login"))
+        self.assertRedirects(response, self.login_url)
 
         # try to login with user not in db
         self.client.login(
@@ -91,7 +92,7 @@ class UserListTestCase(TestCase):
         )
         response = self.client.get(edit_url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy("login"))
+        self.assertRedirects(response, self.login_url)
 
         # login with user in db
         first_user = User.objects.first()
@@ -131,7 +132,7 @@ class UserListTestCase(TestCase):
         # no logged user
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy("login"))
+        self.assertRedirects(response, self.login_url)
 
         # try to login with user not in db
         self.client.login(
@@ -140,7 +141,7 @@ class UserListTestCase(TestCase):
         )
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy("login"))
+        self.assertRedirects(response, self.login_url)
 
         # login with user in db
         first_user = User.objects.first()

@@ -21,4 +21,4 @@ class LoginRequiredMsgMixin(LoginRequiredMixin):
                 extra_tags="danger",
             )
             return redirect(self.login_url)
-        return super().handle_no_permission()
+        return False

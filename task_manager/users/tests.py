@@ -121,6 +121,13 @@ class UserListTestCase(TestCase):
             "password1": f"new_pass1",
             "password2": f"new_pass1",
         }
+
+        response = self.client.post(other_edit_url, data=data, follow=True)
+        self.assertContains(
+            response,
+            "У вас нет прав для изменения другого пользователя.",
+        )
+
         response = self.client.post(edit_url, data=data, follow=True)
         self.assertTrue(User.objects.filter(username="New Test_1").exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
@@ -153,6 +160,12 @@ class UserListTestCase(TestCase):
         self.assertRedirects(response, reverse_lazy("user_list"))
         ## check if error message about not authorized user is in place
         response = self.client.get(other_delete_url, follow=True)
+        self.assertContains(
+            response,
+            "У вас нет прав для удаления другого пользователя.",
+        )
+
+        response = self.client.post(other_delete_url, follow=True)
         self.assertContains(
             response,
             "У вас нет прав для удаления другого пользователя.",

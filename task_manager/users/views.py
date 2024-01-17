@@ -1,17 +1,13 @@
-from django.shortcuts import render, get_object_or_404, redirect
-
-# Create your views here.
-from django.http import HttpResponse
-from django.views import View
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView
-from django.urls import reverse_lazy
-
-from task_manager.users.models import User
-from task_manager.users.forms import UserCreateForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.utils.translation import gettext
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from task_manager.users.forms import UserCreateForm
+from task_manager.users.models import User
 
 
 class UserListView(ListView):

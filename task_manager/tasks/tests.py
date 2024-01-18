@@ -45,3 +45,26 @@ class TaskTestCase(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertContains(response, task.name)
 
+    def test_add_task(self):
+        # check if unathorized user can not create tasks
+        response = self.client.post(
+            reverse_lazy("create_task"), data=self.test_task, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+        response = self.client.post(
+            reverse_lazy("create_task"), data=self.test_task, format="json"
+        )
+        # check that logged user is redirected to task list page
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("task_list"))
+
+        # check if new status is added
+        new_item = Task.objects.last()
+        self.assertEqual(new_item.name, self.test_task["name"])
+        self.assertEqual(new_item.creator, User.objects.get(id=1))
+

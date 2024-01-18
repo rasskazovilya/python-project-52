@@ -1,0 +1,68 @@
+[
+    {
+        "model": "statuses.status",
+        "pk": 1,
+        "fields": {
+            "name": "Done",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "username": "Test_1",
+            "first_name": "Test_first_name_1",
+            "last_name": "Test_last_name_1",
+            "password": "pass1",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "username": "Test_2",
+            "first_name": "Test_first_name_2",
+            "last_name": "Test_last_name_2",
+            "password": "pass2",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 1,
+        "fields": {
+            "name": "Test_0",
+            "description": "Test description 0",
+            "status": 1,
+            "creator": 1,
+            "performer": 1,
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 2,
+        "fields": {
+            "name": "Test_1",
+            "description": "Test description 1",
+            "status": 1,
+            "creator": 1,
+            "performer": 2,
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 3,
+        "fields": {
+            "name": "Test_2",
+            "description": "Test description 2",
+            "status": 1,
+            "creator": 2,
+            "performer": 1,
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    }
+]

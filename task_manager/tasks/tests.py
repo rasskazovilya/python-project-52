@@ -22,7 +22,7 @@ class TaskTestCase(TestCase):
         # }
         # Status.objects.create(**self.test_status)
 
-        self.task = {
+        self.test_task = {
             "name": "Task1",
             "description": "Desc1",
             "status": 1,

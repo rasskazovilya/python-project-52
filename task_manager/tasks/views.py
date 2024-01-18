@@ -23,7 +23,15 @@ class TaskListView(LoginRequiredMsgMixin, ListView):
 
 
 class TaskCreateView(LoginRequiredMsgMixin, CreateView):
-    pass
+    template_name = "task_create.html"
+    success_url = reverse_lazy("task_list")
+    model = Task
+    extra_context = {"title": gettext("Создать задачу")}
+    fields = ["name", "description", "status", "performer"]
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
 
 
 class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):

@@ -4,7 +4,7 @@
 {% block content %}
 <div>
     <h1 class="my-4">{{ title }}</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'create_status'%}">{% translate "Создать статус" %}</a>
+    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate "Создать задачу" %}</a>
     <table class="table table-striped">
         <thead>
            <tr>
@@ -14,7 +14,7 @@
             <th>{% translate "Исполнитель" %}</th>
             <th>{% translate "Дата создания" %}</th>
             <th></th>
-           </tr> 
+           </tr>
         </thead>
         <tbody>
             {% for task in tasks %}
@@ -27,6 +27,9 @@
                     </td>
                     <td>
                         {{ task.creator }}    
+                    </td>
+                    <td>
+                        {{ task.performer }}    
                     </td>
                     <td>
                         {{ task.created_at }}

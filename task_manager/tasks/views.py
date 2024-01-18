@@ -16,7 +16,10 @@ from .models import Task
 
 # Create your views here.
 class TaskListView(LoginRequiredMsgMixin, ListView):
-    pass
+    template_name = "task_list.html"
+    model = Task
+    context_object_name = "tasks"
+    extra_context = {"title": gettext("Задачи")}
 
 
 class TaskCreateView(LoginRequiredMsgMixin, CreateView):

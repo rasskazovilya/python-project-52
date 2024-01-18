@@ -32,15 +32,16 @@ class TaskTestCase(TestCase):
 
         return super().setUp()
 
-    def test_status_list(self):
+    def test_task_list(self):
         response = self.client.get(reverse_lazy("task_list"))
         self.assertEqual(302, response.status_code)
         self.assertRedirects(response, reverse_lazy("login"))
 
         task = Task.objects.first()
-        self.client.force_login(self.test_user)
-        response = self.client.get(reverse_lazy("status_list"))
+        user = User.objects.first()
+        self.client.force_login(user)
 
+        response = self.client.get(reverse_lazy("task_list"))
         self.assertEqual(200, response.status_code)
         self.assertContains(response, task.name)
 

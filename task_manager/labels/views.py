@@ -26,7 +26,7 @@ class LabelListView(LoginRequiredMsgMixin, ListView):
 
 
 class LabelCreateView(LoginRequiredMsgMixin, CreateView):
-    template_name = "label_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("label_list")
     model = Label
     extra_context = {"title": gettext("Создать метку")}

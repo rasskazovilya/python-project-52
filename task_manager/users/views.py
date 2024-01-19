@@ -20,7 +20,7 @@ class UserListView(ListView):
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
-    template_name = "user_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("user_list")
     success_message = gettext("Пользователь успешно зарегистрирован.")
     form_class = UserCreateForm

@@ -23,7 +23,7 @@ class TaskListView(LoginRequiredMsgMixin, ListView):
 
 
 class TaskCreateView(LoginRequiredMsgMixin, CreateView):
-    template_name = "task_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
     model = Task
     extra_context = {"title": gettext("Создать задачу")}

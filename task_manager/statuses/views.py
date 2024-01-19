@@ -18,7 +18,7 @@ class StatusListView(LoginRequiredMsgMixin, ListView):
 
 
 class StatusCreateView(LoginRequiredMsgMixin, CreateView):
-    template_name = "status_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("status_list")
     model = Status
     extra_context = {"title": gettext("Создание статуса")}

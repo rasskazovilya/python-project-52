@@ -32,7 +32,3 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 
 class LabelDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     pass
-
-
-class LabelDetailView(LoginRequiredMsgMixin, DetailView):
-    pass

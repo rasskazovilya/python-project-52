@@ -68,7 +68,7 @@ class TaskTestCase(TestCase):
         self.assertEqual(new_item.name, self.test_task["name"])
         self.assertEqual(new_item.creator, User.objects.get(id=1))
 
-    def test_edit_status(self):
+    def test_edit_task(self):
         edit_url = reverse_lazy("edit_task", kwargs={"pk": 1})
 
         # check if unathorized user can not edit tasks
@@ -96,3 +96,24 @@ class TaskTestCase(TestCase):
         self.assertEqual(edited_task.description, "Desc1")
         self.assertEqual(edited_task.creator, User.objects.first())
 
+    def test_delete_task(self):
+        del_url = reverse_lazy("del_task", kwargs={"pk": 1})
+        deleted_task = Task.objects.get(id=1)
+
+        # check if unathorized user can not edit statuses
+        response = self.client.post(del_url)
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+        # delete status
+        response = self.client.post(del_url, follow=True)
+        # check if redirect is correct and success message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("task_list"))
+        self.assertContains(response, "Задача успешно удалена.")
+
+        # check if status has been deleted
+        self.assertNotIn(deleted_task, Task.objects.all())

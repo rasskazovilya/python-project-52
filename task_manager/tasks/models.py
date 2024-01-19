@@ -30,3 +30,6 @@ class Task(models.Model):
         related_name="performer",
         verbose_name=gettext("Исполнитель"),
     )
+
+    def __str__(self):
+        return self.name

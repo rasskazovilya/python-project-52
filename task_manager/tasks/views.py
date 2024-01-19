@@ -9,7 +9,7 @@ from django.views.generic import (
     UpdateView,
     DetailView,
 )
-from task_manager.mixins import LoginRequiredMsgMixin
+from task_manager.mixins import LoginRequiredMsgMixin, SameUserCheckMixin
 
 from .models import Task
 
@@ -43,17 +43,25 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     fields = ["name", "description", "status", "performer"]
 
 
-class TaskDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(
+    LoginRequiredMsgMixin, SameUserCheckMixin, SuccessMessageMixin, DeleteView
+):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("task_list")
     success_message = gettext("Задача успешно удалена.")
     model = Task
     extra_context = {"title": gettext("Удалить задачу")}
+    same_user_error_message = gettext("Задачу может удалить только ее автор")
 
     def delete(self, *args, **kwargs):
         response = super().delete(*args, **kwargs)
         messages.success(self.request, self.success_message)
         return response
+
+    def get_same_user(self, pk):
+        task = Task.objects.get(pk=pk)
+        print(task.creator)
+        return task.creator
 
 
 class TaskDetailView(LoginRequiredMsgMixin, DetailView):

@@ -112,8 +112,14 @@ class TaskTestCase(TestCase):
         user = User.objects.first()
         self.client.force_login(user)
         # check if logged in user could not delete task created by another user
+        # redirect to task list without 403 error
         response = self.client.post(other_del_url)
-        self.assertEqual(403, response.status_code)
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("task_list"))
+        # check if message is showing
+        response = self.client.post(other_del_url, follow=True)
+        self.assertNotEqual(user, Task.objects.get(id=3).creator)
+        self.assertContains(response, "Задачу может удалить только ее автор")
 
         # delete task
         response = self.client.post(del_url, follow=True)

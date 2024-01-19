@@ -70,6 +70,7 @@ class TaskTestCase(TestCase):
 
     def test_edit_task(self):
         edit_url = reverse_lazy("edit_task", kwargs={"pk": 1})
+        other_edit_url = reverse_lazy("edit_task", kwargs={"pk": 3})
 
         # check if unathorized user can not edit tasks
         response = self.client.post(
@@ -81,6 +82,11 @@ class TaskTestCase(TestCase):
         # login user
         user = User.objects.first()
         self.client.force_login(user)
+
+        # check if logged in user could not edit task created by another user
+        response = self.client.post(other_edit_url)
+        self.assertEqual(403, response.status_code)
+
         # change task
         response = self.client.post(
             edit_url, data=self.test_task, format="json", follow=True
@@ -98,9 +104,10 @@ class TaskTestCase(TestCase):
 
     def test_delete_task(self):
         del_url = reverse_lazy("del_task", kwargs={"pk": 1})
+        other_del_url = reverse_lazy("del_task", kwargs={"pk": 3})
         deleted_task = Task.objects.get(id=1)
 
-        # check if unathorized user can not edit statuses
+        # check if unathorized user can not edit tasks
         response = self.client.post(del_url)
         self.assertEqual(302, response.status_code)
         self.assertRedirects(response, reverse_lazy("login"))
@@ -108,12 +115,16 @@ class TaskTestCase(TestCase):
         # login user
         user = User.objects.first()
         self.client.force_login(user)
-        # delete status
+        # check if logged in user could not delete task created by another user
+        response = self.client.post(other_del_url)
+        self.assertEqual(403, response.status_code)
+
+        # delete task
         response = self.client.post(del_url, follow=True)
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("task_list"))
         self.assertContains(response, "Задача успешно удалена.")
 
-        # check if status has been deleted
+        # check if task has been deleted
         self.assertNotIn(deleted_task, Task.objects.all())

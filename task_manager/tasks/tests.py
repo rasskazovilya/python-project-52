@@ -130,3 +130,22 @@ class TaskTestCase(TestCase):
 
         # check if task has been deleted
         self.assertNotIn(deleted_task, Task.objects.all())
+
+    def test_task_detail(self):
+        detail_url = reverse_lazy("task_detail", kwargs={"pk": 1})
+        task = Task.objects.get(id=1)
+        # open page with existing task - status code must be 200
+        response = self.client.get(detail_url)
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        user = User.objects.first()
+        self.client.force_login(user)
+
+        response = self.client.get(detail_url)
+        self.assertEqual(200, response.status_code)
+        self.assertContains(response, task.name)
+        self.assertContains(response, task.description)
+        self.assertContains(response, task.creator)
+        self.assertContains(response, task.performer)
+        self.assertContains(response, task.status)

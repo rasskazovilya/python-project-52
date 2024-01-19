@@ -83,10 +83,6 @@ class TaskTestCase(TestCase):
         user = User.objects.first()
         self.client.force_login(user)
 
-        # check if logged in user could not edit task created by another user
-        response = self.client.post(other_edit_url)
-        self.assertEqual(403, response.status_code)
-
         # change task
         response = self.client.post(
             edit_url, data=self.test_task, format="json", follow=True

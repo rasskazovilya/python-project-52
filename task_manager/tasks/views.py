@@ -64,4 +64,7 @@ class TaskDeleteView(
 
 
 class TaskDetailView(LoginRequiredMsgMixin, DetailView):
-    pass
+    template_name = "task_detail.html"
+    context_object_name = "task"
+    model = Task
+    extra_context = {"title": gettext("Просмотр задачи")}

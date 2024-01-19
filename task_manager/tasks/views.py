@@ -35,7 +35,12 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
 
 
 class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
-    pass
+    template_name = "task_create.html"
+    success_url = reverse_lazy("task_list")
+    success_message = gettext("Задача успешно изменена.")
+    model = Task
+    extra_context = {"title": gettext("Изменить задачу")}
+    fields = ["name", "description", "status", "performer"]
 
 
 class TaskDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):

@@ -60,7 +60,6 @@ class TaskDeleteView(
 
     def get_same_user(self, pk):
         task = Task.objects.get(pk=pk)
-        print(task.creator)
         return task.creator
 
 

@@ -16,7 +16,10 @@ from .models import Label
 
 # Create your views here.
 class LabelListView(LoginRequiredMsgMixin, ListView):
-    pass
+    template_name = "label_list.html"
+    model = Label
+    context_object_name = "tasks"
+    extra_context = {"title": gettext("Метки")}
 
 
 class LabelCreateView(LoginRequiredMsgMixin, CreateView):

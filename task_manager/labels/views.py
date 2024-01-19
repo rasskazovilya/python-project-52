@@ -18,8 +18,11 @@ from .models import Label
 class LabelListView(LoginRequiredMsgMixin, ListView):
     template_name = "label_list.html"
     model = Label
-    context_object_name = "tasks"
-    extra_context = {"title": gettext("Метки")}
+    context_object_name = "labels"
+    extra_context = {
+        "title": gettext("Метки"),
+        "button_name": gettext("Создать метку"),
+    }
 
 
 class LabelCreateView(LoginRequiredMsgMixin, CreateView):

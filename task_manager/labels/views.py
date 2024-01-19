@@ -26,7 +26,11 @@ class LabelListView(LoginRequiredMsgMixin, ListView):
 
 
 class LabelCreateView(LoginRequiredMsgMixin, CreateView):
-    pass
+    template_name = "label_create.html"
+    success_url = reverse_lazy("label_list")
+    model = Label
+    extra_context = {"title": gettext("Создать метку")}
+    fields = ["name"]
 
 
 class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):

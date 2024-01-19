@@ -44,7 +44,16 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 
 
 class TaskDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
-    pass
+    template_name = "confirm_delete.html"
+    success_url = reverse_lazy("task_list")
+    success_message = gettext("Задача успешно удалена.")
+    model = Task
+    extra_context = {"title": gettext("Удалить задачу")}
+
+    def delete(self, *args, **kwargs):
+        response = super().delete(*args, **kwargs)
+        messages.success(self.request, self.success_message)
+        return response
 
 
 class TaskDetailView(LoginRequiredMsgMixin, DetailView):

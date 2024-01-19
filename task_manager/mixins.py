@@ -31,7 +31,7 @@ class SameUserCheckMixin(SingleObjectMixin):
     same_user_error_message = (
         "У вас нет прав для изменения/удаления другого пользователя."
     )
-    success_url = reverse_lazy("user_list")
+    success_url = ""
 
     def dispatch(self, *args, **kwargs):
         if self.handle_no_permission():

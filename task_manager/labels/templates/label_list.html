@@ -4,7 +4,7 @@
 {% block content %}
 <div>
     <h1 class="my-4">{{ title }}</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate "Создать задачу" %}</a>
+    <a class="btn btn-primary mb-3" href="{% url 'create_label'%}">{{button_name}}</a>
     <table class="table table-striped">
         <thead>
            <tr>
@@ -18,18 +18,18 @@
             {% for label in labels %}
                 <tr>
                     <td>
-                        {{ task.id }}
+                        {{ label.id }}
                     </td>
                     <td>
-                        {{ task.name }}
+                        {{ label.name }}
                     </td>
                     <td>
-                        {{ task.created_at }}
+                        {{ label.created_at }}
                     </td>
                     <td>
-                        <a href="{% url 'edit_task' task.id %}">{% translate "Изменить" %}</a>
+                        <a href="{% url 'edit_label' label.id %}">{% translate "Изменить" %}</a>
                         <br>
-                        <a href="{% url 'del_task' task.id %}">{% translate "Удалить" %}</a>
+                        <a href="{% url 'del_label' label.id %}">{% translate "Удалить" %}</a>
                     </td>
                 </tr>
             {% endfor %}

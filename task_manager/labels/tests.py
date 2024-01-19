@@ -36,3 +36,21 @@ class LabelTestCase(TestCase):
         response = self.client.get(reverse_lazy("label_list"))
         self.assertEqual(200, response.status_code)
         self.assertContains(response, label.name)
+
+    def test_add_label(self):
+        response = self.client.post(
+            reverse_lazy("create_label"), data=self.test_label, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        user = User.objects.first()
+        self.client.force_login(user)
+        response = self.client.post(
+            reverse_lazy("create_label"), data=self.test_label, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("label_list"))
+
+        new_item = Label.objects.last()
+        self.assertEqual(new_item.name, self.test_label["name"])

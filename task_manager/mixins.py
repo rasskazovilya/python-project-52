@@ -28,7 +28,7 @@ class LoginRequiredMsgMixin(LoginRequiredMixin):
 
 class SameUserCheckMixin(SingleObjectMixin):
     model = User
-    same_user_error_message = (
+    same_user_error_message = gettext(
         "У вас нет прав для изменения/удаления другого пользователя."
     )
     success_url = ""

@@ -1,14 +1,9 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    UpdateView,
-    DetailView,
-)
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.mixins import LoginRequiredMsgMixin
 
 from .models import Label

@@ -81,3 +81,36 @@ class LabelTestCase(TestCase):
         # check if label has changed
         edited_label = Label.objects.get(id=1)
         self.assertEqual(edited_label.name, "Label1")
+
+    def test_del_label(self):
+        del_url = reverse_lazy("del_label", kwargs={"pk": 1})
+        deleted_label = Label.objects.get(id=1)
+
+        # check if unathorized user can not edit labels
+        response = self.client.post(del_url)
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+
+        # try to delete label with related task
+        response = self.client.post(del_url, follow=True)
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("label_list"))
+        self.assertContains(
+            response, "Невозможно удалить метку, потому что она используется"
+        )
+
+        # delete label from task
+        Task.objects.filter(labels=deleted_label).first().labels.clear()
+        # try again to delete label
+        response = self.client.post(del_url, follow=True)
+        # check if redirect is correct and success message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("label_list"))
+        self.assertContains(response, "Метка успешно удалена.")
+
+        # check if label has been deleted
+        self.assertNotIn(deleted_label, Label.objects.all())

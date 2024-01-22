@@ -26,7 +26,10 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
     model = Task
-    extra_context = {"title": gettext("Создать задачу")}
+    extra_context = {
+        "title": gettext("Создать задачу"),
+        "button_name": gettext("Создать"),
+    }
     fields = ["name", "description", "status", "performer"]
 
     def form_valid(self, form):
@@ -35,12 +38,15 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
 
 
 class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
-    template_name = "task_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
     success_message = gettext("Задача успешно изменена.")
     model = Task
-    extra_context = {"title": gettext("Изменить задачу")}
-    fields = ["name", "description", "status", "performer"]
+    extra_context = {
+        "title": gettext("Изменить задачу"),
+        "button_name": gettext("Изменить"),
+    }
+    fields = ["name", "description", "status", "performer", "labels"]
 
 
 class TaskDeleteView(

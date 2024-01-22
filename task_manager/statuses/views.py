@@ -21,16 +21,22 @@ class StatusCreateView(LoginRequiredMsgMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("status_list")
     model = Status
-    extra_context = {"title": gettext("Создать статус")}
+    extra_context = {
+        "title": gettext("Создать статус"),
+        "button_name": gettext("Создать"),
+    }
     fields = ["name"]
 
 
 class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
-    template_name = "status_create.html"
+    template_name = "obj_create.html"
     success_url = reverse_lazy("status_list")
     success_message = gettext("Статус успешно изменен.")
     model = Status
-    extra_context = {"title": gettext("Изменить статус")}
+    extra_context = {
+        "title": gettext("Изменить статус"),
+        "button_name": gettext("Изменить"),
+    }
     fields = ["name"]
 
 

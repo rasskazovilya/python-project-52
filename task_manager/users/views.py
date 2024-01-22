@@ -24,18 +24,24 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("user_list")
     success_message = gettext("Пользователь успешно зарегистрирован.")
     form_class = UserCreateForm
-    extra_context = {"title": gettext("Создание пользователя")}
+    extra_context = {
+        "title": gettext("Создание пользователя"),
+        "button_name": gettext("Создать"),
+    }
 
 
 class UserUpdateView(
     LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMixin, UpdateView
 ):
-    template_name = "user_create.html"
+    template_name = "obj_create.html"
     model = User
     success_url = reverse_lazy("user_list")
     success_message = gettext("Пользователь успешно изменен.")
     form_class = UserCreateForm
-    extra_context = {"title": gettext("Изменение пользователя")}
+    extra_context = {
+        "title": gettext("Изменение пользователя"),
+        "button_name": gettext("Изменить"),
+    }
     same_user_error_message = (
         "У вас нет прав для изменения другого пользователя."
     )

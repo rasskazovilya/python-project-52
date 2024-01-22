@@ -13,6 +13,7 @@ from task_manager.mixins import LoginRequiredMsgMixin
 class StatusListView(LoginRequiredMsgMixin, ListView):
     template_name = "status_list.html"
     model = Status
+    ordering = "id"
     context_object_name = "statuses"
     extra_context = {"title": gettext("Статусы")}
 

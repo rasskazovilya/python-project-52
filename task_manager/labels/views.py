@@ -34,7 +34,12 @@ class LabelCreateView(LoginRequiredMsgMixin, CreateView):
 
 
 class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
-    pass
+    template_name = "label_create.html"
+    model = Label
+    success_url = reverse_lazy("label_list")
+    success_message = gettext("Метка успешно изменена.")
+    extra_context = {"title": gettext("Изменение метки")}
+    fields = ["name"]
 
 
 class LabelDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):

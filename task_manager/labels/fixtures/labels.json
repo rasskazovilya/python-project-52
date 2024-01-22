@@ -16,6 +16,14 @@
         }
     },
     {
+        "model": "labels.label",
+        "pk": 2,
+        "fields": {
+            "name": "Test_Label_2",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
         "model": "users.user",
         "pk": 1,
         "fields": {
@@ -46,6 +54,7 @@
             "status": 1,
             "creator": 1,
             "performer": 1,
+            "labels": [1],
             "created_at": "1900-01-01T00:00:00Z"
         }
     },

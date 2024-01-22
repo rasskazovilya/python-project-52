@@ -5,6 +5,9 @@ from task_manager.users.models import User
 from task_manager.tasks.models import Task
 from django.urls import reverse_lazy
 
+from .filter import TaskFilter
+from .views import TaskListView
+
 # Create your tests here.
 class TaskTestCase(TestCase):
     fixtures = ["tasks.json"]
@@ -155,3 +158,35 @@ class TaskTestCase(TestCase):
         self.assertContains(response, task.creator)
         self.assertContains(response, task.performer)
         self.assertContains(response, task.status)
+
+    def test_filter_task(self):
+        task1 = Task.objects.first()
+        task2 = Task.objects.get(id=2)
+        task3 = Task.objects.get(id=3)
+
+        user = User.objects.first()
+        self.client.force_login(user)
+
+        response = self.client.get(reverse_lazy("task_list"))
+        self.assertEqual(200, response.status_code)
+        self.assertContains(response, task1)
+        self.assertContains(response, task2)
+        self.assertContains(response, task3)
+
+        query = "?status=&performer=&labels=&creator=on"
+        response = self.client.get(reverse_lazy("task_list") + query)
+        self.assertContains(response, task1)
+        self.assertContains(response, task2)
+        self.assertNotContains(response, task3)
+
+        query = "?status=&performer=&labels=2&"
+        response = self.client.get(reverse_lazy("task_list") + query)
+        self.assertContains(response, task1)
+        self.assertNotContains(response, task2)
+        self.assertNotContains(response, task3)
+
+        query = "?status=&performer=2&labels=&"
+        response = self.client.get(reverse_lazy("task_list") + query)
+        self.assertNotContains(response, task1)
+        self.assertContains(response, task2)
+        self.assertNotContains(response, task3)

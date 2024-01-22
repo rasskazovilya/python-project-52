@@ -54,3 +54,30 @@ class LabelTestCase(TestCase):
 
         new_item = Label.objects.last()
         self.assertEqual(new_item.name, self.test_label["name"])
+
+    def test_edit_label(self):
+        edit_url = reverse_lazy("edit_label", kwargs={"pk": 1})
+
+        # check if unathorized user can not edit labels
+        response = self.client.post(
+            edit_url, data=self.test_label, format="json"
+        )
+        self.assertEqual(302, response.status_code)
+        self.assertRedirects(response, reverse_lazy("login"))
+
+        # login user
+        user = User.objects.first()
+        self.client.force_login(user)
+
+        # change label
+        response = self.client.post(
+            edit_url, data=self.test_label, format="json", follow=True
+        )
+        # check if redirect is correct and success message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("label_list"))
+        self.assertContains(response, "Метка успешно изменена.")
+
+        # check if label has changed
+        edited_label = Label.objects.get(id=1)
+        self.assertEqual(edited_label.name, "Label1")

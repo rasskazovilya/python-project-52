@@ -27,7 +27,7 @@
         "model": "users.user",
         "pk": 1,
         "fields": {
-            "username": "Test_1",
+            "username": "Test_User_1",
             "first_name": "Test_first_name_1",
             "last_name": "Test_last_name_1",
             "password": "pass1",
@@ -38,7 +38,7 @@
         "model": "users.user",
         "pk": 2,
         "fields": {
-            "username": "Test_2",
+            "username": "Test_User_2",
             "first_name": "Test_first_name_2",
             "last_name": "Test_last_name_2",
             "password": "pass2",

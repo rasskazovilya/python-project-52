@@ -35,7 +35,7 @@ class Task(models.Model):
         blank=True,
         through="TaskLabelRelation",
         verbose_name=gettext("Метки"),
-        related_name="labels",
+        related_name="tasks",
     )
 
     def __str__(self):

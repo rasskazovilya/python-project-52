@@ -30,6 +30,33 @@ class Task(models.Model):
         related_name="performer",
         verbose_name=gettext("Исполнитель"),
     )
+    labels = models.ManyToManyField(
+        "labels.Label",
+        blank=True,
+        through="TaskLabelRelation",
+        verbose_name=gettext("Метки"),
+        related_name="labels",
+    )
 
     def __str__(self):
         return self.name
+
+
+class TaskLabelRelation(models.Model):
+    """
+    Additional model for ManyToMany field in the Tasks model.
+    It's needed because Django doesn't allow to set on delete=models.PROTE
+    """
+
+    task = models.ForeignKey(
+        Task,
+        on_delete=models.CASCADE,
+        related_name="label_tasks",
+        blank=True,
+    )
+    label = models.ForeignKey(
+        "labels.Label",
+        on_delete=models.PROTECT,
+        related_name="task_labels",
+        blank=False,
+    )

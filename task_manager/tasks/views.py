@@ -2,19 +2,13 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    UpdateView,
-    DetailView,
-)
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django_filters.views import FilterView
 from task_manager.mixins import LoginRequiredMsgMixin, SameUserCheckMixin
+from task_manager.tasks.filter import TaskFilter
 
 from .models import Task
 
-from django_filters.views import FilterView
-from task_manager.tasks.filter import TaskFilter
 
 # Create your views here.
 class TaskListView(LoginRequiredMsgMixin, FilterView):

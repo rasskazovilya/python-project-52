@@ -13,11 +13,15 @@ from task_manager.mixins import LoginRequiredMsgMixin, SameUserCheckMixin
 
 from .models import Task
 
+from django_filters.views import FilterView
+from task_manager.tasks.filter import TaskFilter
 
 # Create your views here.
-class TaskListView(LoginRequiredMsgMixin, ListView):
+class TaskListView(LoginRequiredMsgMixin, FilterView):
     template_name = "task_list.html"
     model = Task
+    ordering = "id"
+    filterset_class = TaskFilter
     context_object_name = "tasks"
     extra_context = {"title": gettext("Задачи")}
 

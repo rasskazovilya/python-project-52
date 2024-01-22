@@ -29,7 +29,10 @@ class LabelCreateView(LoginRequiredMsgMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("label_list")
     model = Label
-    extra_context = {"title": gettext("Создать метку")}
+    extra_context = {
+        "title": gettext("Создать метку"),
+        "button_name": gettext("Создать"),
+    }
     fields = ["name"]
 
 
@@ -38,7 +41,10 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     model = Label
     success_url = reverse_lazy("label_list")
     success_message = gettext("Метка успешно изменена.")
-    extra_context = {"title": gettext("Изменение метки")}
+    extra_context = {
+        "title": gettext("Изменение метки"),
+        "button_name": gettext("Создать"),
+    }
     fields = ["name"]
 
 

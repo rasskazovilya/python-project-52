@@ -1,5 +1,6 @@
 from django.test import TestCase
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 from task_manager.users.models import User
 from task_manager.tasks.models import Task
 from django.urls import reverse_lazy
@@ -28,6 +29,7 @@ class TaskTestCase(TestCase):
             "status": 1,
             "creator": 1,
             "performer": 1,
+            "labels": [1],
         }
 
         return super().setUp()
@@ -97,11 +99,13 @@ class TaskTestCase(TestCase):
         self.assertEqual(edited_task.name, "Task1")
         self.assertEqual(edited_task.description, "Desc1")
         self.assertEqual(edited_task.creator, User.objects.first())
+        self.assertEqual(edited_task.labels.first(), Label.objects.first())
 
     def test_delete_task(self):
         del_url = reverse_lazy("del_task", kwargs={"pk": 1})
         other_del_url = reverse_lazy("del_task", kwargs={"pk": 3})
         deleted_task = Task.objects.get(id=1)
+        deleted_task_label = deleted_task.labels.first()
 
         # check if unathorized user can not edit tasks
         response = self.client.post(del_url)
@@ -130,6 +134,8 @@ class TaskTestCase(TestCase):
 
         # check if task has been deleted
         self.assertNotIn(deleted_task, Task.objects.all())
+        # check if labels of deleted task are in place
+        self.assertIn(deleted_task_label, Label.objects.all())
 
     def test_task_detail(self):
         detail_url = reverse_lazy("task_detail", kwargs={"pk": 1})

@@ -30,7 +30,7 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
         "title": gettext("Создать задачу"),
         "button_name": gettext("Создать"),
     }
-    fields = ["name", "description", "status", "performer"]
+    fields = ["name", "description", "status", "performer", "labels"]
 
     def form_valid(self, form):
         form.instance.creator = self.request.user

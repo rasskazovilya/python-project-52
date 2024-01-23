@@ -18,4 +18,5 @@ migrate:
 makemigrations:
 	poetry run python manage.py makemigrations
 
-setup: install migrate
+setup: 
+	./build.sh

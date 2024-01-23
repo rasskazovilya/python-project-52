@@ -66,6 +66,15 @@ class UserDeleteView(
         return self.model.objects.get(pk=pk)
 
     def delete(self, *args, **kwargs):
+        if self.request.user.tasks:
+            messages.error(
+                self.request,
+                gettext(
+                    "Невозможно удалить пользователя, потому что он используется"
+                ),
+                extra_tags="danger",
+            )
+            return redirect(self.success_url)
         response = super().delete(*args, **kwargs)
         messages.success(self.request, self.success_message)
         return response

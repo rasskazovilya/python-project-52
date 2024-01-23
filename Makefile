@@ -7,7 +7,7 @@ dev:
 	poetry run python manage.py runserver
 
 start:
-	poetry run python -m gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager:application
+	poetry run gunicorn -w 5 -b 0.0.0.0:$(PORT) task_manager.wsgi:application
 
 test:
 	poetry run manage.py test

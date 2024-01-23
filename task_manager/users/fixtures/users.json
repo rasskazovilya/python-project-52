@@ -1,5 +1,26 @@
 [
     {
+        "model": "statuses.status",
+        "pk": 1,
+        "fields": {
+            "name": "Done",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "tasks.task",
+        "pk": 1,
+        "fields": {
+            "name": "Task_0",
+            "description": "Test description 0",
+            "status": 1,
+            "creator": 2,
+            "performer": 2,
+            "labels": [],
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
         "model": "users.user",
         "pk": 1,
         "fields": {

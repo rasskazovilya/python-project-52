@@ -18,4 +18,4 @@ migrate:
 makemigrations:
 	poetry run python manage.py makemigrations
 
-setup: migrate install
+setup: install migrate

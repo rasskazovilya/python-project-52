@@ -162,7 +162,7 @@ ROLLBAR = {
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if "postgresql" in DATABASE_URL:
+if "postgres" in DATABASE_URL:
     DATABASES = {
         "default": dj_database_url.parse(
             DATABASE_URL, conn_max_age=600, conn_health_checks=True

@@ -21,13 +21,13 @@ class Task(models.Model):
     creator = models.ForeignKey(
         "users.User",
         on_delete=models.PROTECT,
-        related_name="tasks",
+        related_name="creator_tasks",
         verbose_name=gettext("Создатель"),
     )
     performer = models.ForeignKey(
         "users.User",
         on_delete=models.PROTECT,
-        related_name="tasks",
+        related_name="performer_tasks",
         verbose_name=gettext("Исполнитель"),
     )
     labels = models.ManyToManyField(

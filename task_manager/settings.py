@@ -26,6 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv.load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 DATABASE_URL = os.getenv("DATABASE_URL")
+ROLLBAR_TOKEN = os.getenv("ROLLBAR_TOKEN")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = "RENDER" not in os.environ
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "rollbar.contrib.django.middleware.RollbarNotifierMiddleware",
 ]
 
 ROOT_URLCONF = "task_manager.urls"
@@ -146,6 +148,14 @@ BOOTSTRAP5 = {
     "field_renderers": {
         "default": "django_bootstrap5.renderers.FieldRenderer",
     },
+}
+
+## Default settings for Rollbar
+ROLLBAR = {
+    "access_token": ROLLBAR_TOKEN,
+    "environment": "development" if DEBUG else "production",
+    "code_version": "1.0",
+    "root": BASE_DIR,
 }
 
 

@@ -135,7 +135,7 @@ class UserListTestCase(TestCase):
 
     def test_delete_user(self):
         delete_url = reverse_lazy("del_user", kwargs={"pk": 1})
-        other_delete_url = reverse_lazy("del_user", kwargs={"pk": 4})
+        other_delete_url = reverse_lazy("del_user", kwargs={"pk": 2})
         # no logged user
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 302)
@@ -165,18 +165,27 @@ class UserListTestCase(TestCase):
             "У вас нет прав для удаления другого пользователя.",
         )
 
+        ## make sure that you can not delete user with created tasks
+        second_user = User.objects.get(id=2)
+        self.client.force_login(second_user)
+        print(second_user.creator_tasks.filter(creator=second_user).all())
+        print(second_user.creator_tasks.filter(creator=second_user).exists())
         response = self.client.post(other_delete_url, follow=True)
+        self.assertRedirects(response, reverse_lazy("user_list"))
+        self.assertTrue(User.objects.filter(id=2).exists())
         self.assertContains(
             response,
-            "У вас нет прав для удаления другого пользователя.",
+            "Невозможно удалить пользователя, потому что он используется",
         )
 
         ## get delete page for current user
+        self.client.force_login(first_user)
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
 
         ## delete current user
+        print(first_user.creator_tasks.filter(creator=first_user).all())
         response = self.client.post(delete_url, follow=True)
-        self.assertFalse(User.objects.filter(username="New Test_1").exists())
+        self.assertFalse(User.objects.filter(id=1).exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
         self.assertContains(response, "Пользователь успешно удален.")

@@ -8,7 +8,7 @@ packages = [{include = "task_manager"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8.1"
-flake8 = "^4.1.0"
+flake8 = ">=4.1.0"
 python-dotenv = "^1.0.0"
 django = ">=3.2.3"
 gunicorn = "^21.2.0"

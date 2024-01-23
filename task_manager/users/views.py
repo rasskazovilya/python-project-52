@@ -66,7 +66,7 @@ class UserDeleteView(
         return self.model.objects.get(pk=pk)
 
     def delete(self, *args, **kwargs):
-        if self.request.user.tasks:
+        if not self.request.user.creator_tasks:
             messages.error(
                 self.request,
                 gettext(

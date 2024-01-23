@@ -17,6 +17,7 @@ django-bootstrap5 = "^23.3"
 django-extensions = "^3.2.3"
 django-filter = "^23.5"
 rollbar = "^1.0.0"
+psycopg2-binary = "^2.9.9"
 
 
 [build-system]

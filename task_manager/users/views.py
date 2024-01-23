@@ -66,7 +66,11 @@ class UserDeleteView(
         return self.model.objects.get(pk=pk)
 
     def delete(self, *args, **kwargs):
-        if not self.request.user.creator_tasks:
+        user = self.request.user
+        creator_tasks = user.creator_tasks.filter(creator=user)
+        performer_tasks = user.performer_tasks.filter(performer=user)
+
+        if creator_tasks or performer_tasks:
             messages.error(
                 self.request,
                 gettext(
@@ -75,6 +79,7 @@ class UserDeleteView(
                 extra_tags="danger",
             )
             return redirect(self.success_url)
+
         response = super().delete(*args, **kwargs)
         messages.success(self.request, self.success_message)
         return response

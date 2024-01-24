@@ -39,7 +39,7 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_message = gettext("Метка успешно изменена.")
     extra_context = {
         "title": gettext("Изменение метки"),
-        "button_name": gettext("Создать"),
+        "button_name": gettext("Изменить"),
     }
     fields = ["name"]
 

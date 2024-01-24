@@ -12,7 +12,7 @@ from django.core.exceptions import PermissionDenied
 
 
 class UserListView(ListView):
-    template_name = "user_list.html"
+    template_name = "users/user_list.html"
     model = User
     ordering = "id"
     paginate_by = 10

@@ -11,7 +11,7 @@ from .models import Label
 
 # Create your views here.
 class LabelListView(LoginRequiredMsgMixin, ListView):
-    template_name = "label_list.html"
+    template_name = "labels/label_list.html"
     model = Label
     ordering = "id"
     context_object_name = "labels"

@@ -11,7 +11,7 @@ from task_manager.mixins import LoginRequiredMsgMixin
 
 # Create your views here.
 class StatusListView(LoginRequiredMsgMixin, ListView):
-    template_name = "status_list.html"
+    template_name = "statuses/status_list.html"
     model = Status
     ordering = "id"
     context_object_name = "statuses"

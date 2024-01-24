@@ -12,7 +12,7 @@ from .models import Task
 
 # Create your views here.
 class TaskListView(LoginRequiredMsgMixin, FilterView):
-    template_name = "task_list.html"
+    template_name = "tasks/task_list.html"
     model = Task
     ordering = "id"
     filterset_class = TaskFilter
@@ -68,7 +68,7 @@ class TaskDeleteView(
 
 
 class TaskDetailView(LoginRequiredMsgMixin, DetailView):
-    template_name = "task_detail.html"
+    template_name = "tasks/task_detail.html"
     context_object_name = "task"
     model = Task
     extra_context = {"title": gettext("Просмотр задачи")}

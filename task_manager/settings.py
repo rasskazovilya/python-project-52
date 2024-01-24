@@ -211,7 +211,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = [
-    "task_manager/locale",
+    BASE_DIR / "task_manager" / "locale",
 ]
 
 # Static files (CSS, JavaScript, Images)

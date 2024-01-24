@@ -7,9 +7,9 @@
         <thead>
            <tr>
             <th>ID</th>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Created at</th>
+            <th>{% translate "Username" %}</th>
+            <th>{% translate "Full name" %}</th>
+            <th>{% translate "Created at" %}</th>
             <th></th>
            </tr> 
         </thead>
@@ -29,9 +29,9 @@
                         {{ user.created_at }}
                     </td>
                     <td>
-                        <a href="{% url 'edit_user' user.id %}">Изменить</a>
+                        <a href="{% url 'edit_user' user.id %}">{% translate "Edit" %}</a>
                         <br>
-                        <a href="{% url 'del_user' user.id %}">Удалить</a>
+                        <a href="{% url 'del_user' user.id %}">{% translate "Delete" %}</a>
                     </td>
                 </tr>
             {% endfor %}

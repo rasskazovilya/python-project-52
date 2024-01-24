@@ -9,8 +9,8 @@
         <thead>
            <tr>
             <th>ID</th>
-            <th>{% translate "Имя" %}</th>
-            <th>{% translate "Дата создания" %}</th>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Created at" %}</th>
             <th></th>
            </tr>
         </thead>
@@ -27,9 +27,9 @@
                         {{ label.created_at }}
                     </td>
                     <td>
-                        <a href="{% url 'edit_label' label.id %}">{% translate "Изменить" %}</a>
+                        <a href="{% url 'edit_label' label.id %}">{% translate "Edit" %}</a>
                         <br>
-                        <a href="{% url 'del_label' label.id %}">{% translate "Удалить" %}</a>
+                        <a href="{% url 'del_label' label.id %}">{% translate "Delete" %}</a>
                     </td>
                 </tr>
             {% endfor %}

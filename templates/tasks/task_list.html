@@ -5,14 +5,14 @@
 {% block content %}
 <div>
     <h1 class="my-4">{{ title }}</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate "Создать задачу" %}</a>
+    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate "Create task" %}</a>
     
     {% block filter %}
     <div class="card mb-3">
         <div class="card-body bg-light">
             <form class="form-inline center" method="get">
                 {% bootstrap_form filter.form %}
-                <input class="btn btn-primary" type="submit" value="{% translate 'Показать' %}">
+                <input class="btn btn-primary" type="submit" value="{% translate 'Show' %}">
             </form>
         </div>
     </div>    
@@ -22,11 +22,11 @@
         <thead>
            <tr>
             <th>ID</th>
-            <th>{% translate "Имя" %}</th>
-            <th>{% translate "Статус" %}</th>
-            <th>{% translate "Создатель" %}</th>
-            <th>{% translate "Исполнитель" %}</th>
-            <th>{% translate "Дата создания" %}</th>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Status" %}</th>
+            <th>{% translate "Creator" %}</th>
+            <th>{% translate "Performer" %}</th>
+            <th>{% translate "Created at" %}</th>
             <th></th>
            </tr>
         </thead>
@@ -52,9 +52,9 @@
                         {{ task.created_at }}
                     </td>
                     <td>
-                        <a href="{% url 'edit_task' task.id %}">{% translate "Изменить" %}</a>
+                        <a href="{% url 'edit_task' task.id %}">{% translate "Edit" %}</a>
                         <br>
-                        <a href="{% url 'del_task' task.id %}">{% translate "Удалить" %}</a>
+                        <a href="{% url 'del_task' task.id %}">{% translate "Delete" %}</a>
                     </td>
                 </tr>
             {% endfor %}

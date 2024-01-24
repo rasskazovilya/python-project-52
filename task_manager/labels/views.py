@@ -16,8 +16,8 @@ class LabelListView(LoginRequiredMsgMixin, ListView):
     ordering = "id"
     context_object_name = "labels"
     extra_context = {
-        "title": gettext("Метки"),
-        "button_name": gettext("Создать метку"),
+        "title": gettext("Labels"),
+        "button_name": gettext("Create label"),
     }
 
 
@@ -26,8 +26,8 @@ class LabelCreateView(LoginRequiredMsgMixin, CreateView):
     success_url = reverse_lazy("label_list")
     model = Label
     extra_context = {
-        "title": gettext("Создать метку"),
-        "button_name": gettext("Создать"),
+        "title": gettext("Create label"),
+        "button_name": gettext("Create"),
     }
     fields = ["name"]
 
@@ -38,8 +38,8 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy("label_list")
     success_message = gettext("Метка успешно изменена.")
     extra_context = {
-        "title": gettext("Изменить метку"),
-        "button_name": gettext("Изменить"),
+        "title": gettext("Edit label"),
+        "button_name": gettext("Edit"),
     }
     fields = ["name"]
 
@@ -49,7 +49,7 @@ class LabelDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy("label_list")
     success_message = gettext("Метка успешно удалена.")
     model = Label
-    extra_context = {"title": gettext("Удалить метку")}
+    extra_context = {"title": gettext("Delete label")}
 
     def delete(self, *args, **kwargs):
         del_label = self.model.objects.get(pk=kwargs["pk"])

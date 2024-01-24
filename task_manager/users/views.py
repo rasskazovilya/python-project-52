@@ -25,8 +25,8 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_message = gettext("Пользователь успешно зарегистрирован.")
     form_class = UserCreateForm
     extra_context = {
-        "title": gettext("Создание пользователя"),
-        "button_name": gettext("Создать"),
+        "title": gettext("Create user"),
+        "button_name": gettext("Create"),
     }
 
 
@@ -39,8 +39,8 @@ class UserUpdateView(
     success_message = gettext("Пользователь успешно изменен.")
     form_class = UserCreateForm
     extra_context = {
-        "title": gettext("Изменение пользователя"),
-        "button_name": gettext("Изменить"),
+        "title": gettext("Edit user"),
+        "button_name": gettext("Edit"),
     }
     same_user_error_message = (
         "У вас нет прав для изменения другого пользователя."
@@ -57,7 +57,7 @@ class UserDeleteView(
     model = User
     success_url = reverse_lazy("user_list")
     success_message = gettext("Пользователь успешно удален.")
-    extra_context = {"title": gettext("Удаление пользователя")}
+    extra_context = {"title": gettext("Delete user")}
     same_user_error_message = (
         "У вас нет прав для удаления другого пользователя."
     )

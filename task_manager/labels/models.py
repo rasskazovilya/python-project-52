@@ -4,10 +4,10 @@ from django.utils.translation import gettext
 # Create your models here.
 class Label(models.Model):
     name = models.CharField(
-        max_length=255, unique=True, verbose_name=gettext("Имя")
+        max_length=255, unique=True, verbose_name=gettext("Name")
     )
     created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name=gettext("Дата создания")
+        auto_now_add=True, verbose_name=gettext("Created at")
     )
 
     def __str__(self):

@@ -12,6 +12,10 @@ start:
 test:
 	poetry run manage.py test
 
+test-coverage:
+	poetry run coverage run manage.py test
+	poetry run coverage xml
+
 migrate:
 	poetry run python manage.py migrate
 

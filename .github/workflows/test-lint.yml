@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL}}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     strategy:
       matrix:
         python-version: [3.11]
@@ -22,9 +25,6 @@ jobs:
           pip install -r requirements.txt
           make install
       - name: Run tests
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL}}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0

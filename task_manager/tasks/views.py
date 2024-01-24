@@ -17,7 +17,7 @@ class TaskListView(LoginRequiredMsgMixin, FilterView):
     ordering = "id"
     filterset_class = TaskFilter
     context_object_name = "tasks"
-    extra_context = {"title": gettext("Задачи")}
+    extra_context = {"title": gettext("Tasks")}
 
 
 class TaskCreateView(LoginRequiredMsgMixin, CreateView):
@@ -25,8 +25,8 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
     success_url = reverse_lazy("task_list")
     model = Task
     extra_context = {
-        "title": gettext("Создать задачу"),
-        "button_name": gettext("Создать"),
+        "title": gettext("Create task"),
+        "button_name": gettext("Create"),
     }
     fields = ["name", "description", "status", "performer", "labels"]
 
@@ -41,8 +41,8 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_message = gettext("Задача успешно изменена.")
     model = Task
     extra_context = {
-        "title": gettext("Изменить задачу"),
-        "button_name": gettext("Изменить"),
+        "title": gettext("Edit task"),
+        "button_name": gettext("Edit"),
     }
     fields = ["name", "description", "status", "performer", "labels"]
 
@@ -54,7 +54,7 @@ class TaskDeleteView(
     success_url = reverse_lazy("task_list")
     success_message = gettext("Задача успешно удалена.")
     model = Task
-    extra_context = {"title": gettext("Удалить задачу")}
+    extra_context = {"title": gettext("Delete task")}
     same_user_error_message = gettext("Задачу может удалить только ее автор")
 
     def delete(self, *args, **kwargs):
@@ -71,4 +71,4 @@ class TaskDetailView(LoginRequiredMsgMixin, DetailView):
     template_name = "tasks/task_detail.html"
     context_object_name = "task"
     model = Task
-    extra_context = {"title": gettext("Просмотр задачи")}
+    extra_context = {"title": gettext("Task detail")}

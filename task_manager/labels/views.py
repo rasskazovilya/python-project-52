@@ -38,7 +38,7 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy("label_list")
     success_message = gettext("Метка успешно изменена.")
     extra_context = {
-        "title": gettext("Изменение метки"),
+        "title": gettext("Изменить метку"),
         "button_name": gettext("Изменить"),
     }
     fields = ["name"]

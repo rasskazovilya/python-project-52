@@ -82,7 +82,7 @@ class StatusTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("status_list"))
-        self.assertContains(response, "Статус успешно изменен.")
+        self.assertContains(response, "Статус успешно изменен")
 
         # check if status has changed
         edited_status = Status.objects.get(id=1)
@@ -106,7 +106,7 @@ class StatusTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("status_list"))
-        self.assertContains(response, "Статус успешно удален.")
+        self.assertContains(response, "Статус успешно удален")
 
         # check if status has been deleted
         self.assertNotIn(deleted_status, Status.objects.all())

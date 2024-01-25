@@ -95,7 +95,7 @@ class TaskTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("task_list"))
-        self.assertContains(response, "Задача успешно изменена.")
+        self.assertContains(response, "Задача успешно изменена")
 
         # check if task has changed
         edited_task = Task.objects.get(id=1)
@@ -133,7 +133,7 @@ class TaskTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("task_list"))
-        self.assertContains(response, "Задача успешно удалена.")
+        self.assertContains(response, "Задача успешно удалена")
 
         # check if task has been deleted
         self.assertNotIn(deleted_task, Task.objects.all())

@@ -76,7 +76,7 @@ class LabelTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("label_list"))
-        self.assertContains(response, "Метка успешно изменена.")
+        self.assertContains(response, "Метка успешно изменена")
 
         # check if label has changed
         edited_label = Label.objects.get(id=1)
@@ -110,7 +110,7 @@ class LabelTestCase(TestCase):
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("label_list"))
-        self.assertContains(response, "Метка успешно удалена.")
+        self.assertContains(response, "Метка успешно удалена")
 
         # check if label has been deleted
         self.assertNotIn(deleted_label, Label.objects.all())

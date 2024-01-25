@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 10:08+0300\n"
+"POT-Creation-Date: 2024-01-25 10:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,7 +263,7 @@ msgstr "Пользователь успешно зарегистрирован"
 
 #: .\task_manager\users\views.py:28
 msgid "Create user"
-msgstr "Создать пользователя"
+msgstr "Регистрация"
 
 #: .\task_manager\users\views.py:39
 msgid "User edited successfully"
@@ -293,11 +293,10 @@ msgstr "У вас нет прав для изменения другого по�
 msgid "Unable to delete user being in use"
 msgstr "Невозможно удалить пользователя, потому что он используется"
 
-#: .\task_manager\views.py:19
-#, python-format
-msgid "Successfully signed in. Greetings, %(username)s!"
+#: .\task_manager\views.py:18
+msgid "Successfully signed in. Greetings!"
 msgstr "Вы залогинены"
 
-#: .\task_manager\views.py:26
+#: .\task_manager\views.py:24
 msgid "Successfully logged out. See you!"
 msgstr "Вы разлогинены"

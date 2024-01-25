@@ -27,7 +27,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserCreateForm
     extra_context = {
         "title": gettext("Create user"),
-        "button_name": gettext("Create"),
+        "button_name": gettext("Sign up"),
     }
 
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 15:39+0300\n"
+"POT-Creation-Date: 2024-01-25 15:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,7 +151,7 @@ msgid "Create label"
 msgstr "Создать метку"
 
 #: .\task_manager\labels\views.py:30 .\task_manager\statuses\views.py:27
-#: .\task_manager\tasks\views.py:29 .\task_manager\users\views.py:30
+#: .\task_manager\tasks\views.py:29
 msgid "Create"
 msgstr "Создать"
 
@@ -276,6 +276,10 @@ msgstr "Пользователь успешно зарегистрирован"
 #: .\task_manager\users\views.py:29
 msgid "Create user"
 msgstr "Регистрация"
+
+#: .\task_manager\users\views.py:30
+msgid "Sign up"
+msgstr "Зарегистрировать"
 
 #: .\task_manager\users\views.py:40
 msgid "User edited successfully"

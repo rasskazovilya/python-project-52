@@ -195,10 +195,11 @@ class UserListTestCase(TestCase):
         first_user = User.objects.first()
         self.client.force_login(first_user)
 
-        response = self.client.get(logout_url, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertRedirects(response, reverse_lazy("home"))
-        self.assertContains(response, "Вы разлогинены")
+        # GET method is not allowed for LogoutView for Django version >4.1
+        # response = self.client.get(logout_url, follow=True)
+        # self.assertEqual(response.status_code, 200)
+        # self.assertRedirects(response, reverse_lazy("home"))
+        # self.assertContains(response, "Вы разлогинены")
 
         self.client.force_login(first_user)
         response = self.client.post(logout_url, follow=True)

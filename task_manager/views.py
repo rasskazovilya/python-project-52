@@ -6,11 +6,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext
 
 
-def index(request):
-    return render(
-        request,
-        "index.html",
-    )
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):

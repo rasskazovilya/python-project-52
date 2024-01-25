@@ -8,7 +8,7 @@ from django import forms
 class TaskFilter(django_filters.FilterSet):
     class Meta:
         model = Task
-        fields = ["status", "performer"]
+        fields = ["status", "executor"]
 
     labels = django_filters.ModelChoiceFilter(
         label=gettext("Label"), queryset=Label.objects.all()

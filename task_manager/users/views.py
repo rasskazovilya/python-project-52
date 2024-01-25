@@ -69,7 +69,7 @@ class UserDeleteView(
     def delete(self, *args, **kwargs):
         user = self.request.user
         creator_tasks = user.creator_tasks.filter(creator=user)
-        performer_tasks = user.performer_tasks.filter(performer=user)
+        performer_tasks = user.performer_tasks.filter(executor=user)
 
         if creator_tasks or performer_tasks:
             messages.error(

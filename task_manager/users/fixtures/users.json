@@ -15,7 +15,7 @@
             "description": "Test description 0",
             "status": 1,
             "creator": 2,
-            "performer": 2,
+            "executor": 2,
             "labels": [],
             "created_at": "1900-01-01T00:00:00Z"
         }

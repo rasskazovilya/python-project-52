@@ -31,7 +31,7 @@ class TaskTestCase(TestCase):
             "description": "Desc1",
             "status": 1,
             "creator": 1,
-            "performer": 1,
+            "executor": 1,
             "labels": [1],
         }
 
@@ -156,7 +156,7 @@ class TaskTestCase(TestCase):
         self.assertContains(response, task.name)
         self.assertContains(response, task.description)
         self.assertContains(response, task.creator)
-        self.assertContains(response, task.performer)
+        self.assertContains(response, task.executor)
         self.assertContains(response, task.status)
 
     def test_filter_task(self):
@@ -173,19 +173,19 @@ class TaskTestCase(TestCase):
         self.assertContains(response, task2)
         self.assertContains(response, task3)
 
-        query = "?status=&performer=&labels=&creator=on"
+        query = "?status=&executor=&labels=&creator=on"
         response = self.client.get(reverse_lazy("task_list") + query)
         self.assertContains(response, task1)
         self.assertContains(response, task2)
         self.assertNotContains(response, task3)
 
-        query = "?status=&performer=&labels=2&"
+        query = "?status=&executor=&labels=2&"
         response = self.client.get(reverse_lazy("task_list") + query)
         self.assertContains(response, task1)
         self.assertNotContains(response, task2)
         self.assertNotContains(response, task3)
 
-        query = "?status=&performer=2&labels=&"
+        query = "?status=&executor=2&labels=&"
         response = self.client.get(reverse_lazy("task_list") + query)
         self.assertNotContains(response, task1)
         self.assertContains(response, task2)

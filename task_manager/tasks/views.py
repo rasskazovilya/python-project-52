@@ -29,7 +29,7 @@ class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
         "title": gettext("Create task"),
         "button_name": gettext("Create"),
     }
-    fields = ["name", "description", "status", "performer", "labels"]
+    fields = ["name", "description", "status", "executor", "labels"]
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -45,7 +45,7 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
         "title": gettext("Edit task"),
         "button_name": gettext("Edit"),
     }
-    fields = ["name", "description", "status", "performer", "labels"]
+    fields = ["name", "description", "status", "executor", "labels"]
 
 
 class TaskDeleteView(

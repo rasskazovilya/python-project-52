@@ -21,7 +21,7 @@ class LabelListView(LoginRequiredMsgMixin, ListView):
     }
 
 
-class LabelCreateView(LoginRequiredMsgMixin, CreateView):
+class LabelCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("label_list")
     success_message = gettext("Label created successfully")

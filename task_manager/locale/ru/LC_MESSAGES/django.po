@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 15:56+0300\n"
+"POT-Creation-Date: 2024-01-25 16:02+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr "Дата создания"
 #: .\templates\statuses\status_list.html:30
 #: .\templates\tasks\task_detail.html:43 .\templates\tasks\task_list.html:55
 #: .\templates\users\user_list.html:33 .\task_manager\labels\views.py:42
-#: .\task_manager\statuses\views.py:39 .\task_manager\tasks\views.py:45
+#: .\task_manager\statuses\views.py:40 .\task_manager\tasks\views.py:45
 #: .\task_manager\users\views.py:44
 msgid "Edit"
 msgstr "Изменить"
@@ -111,7 +111,7 @@ msgstr "Удалить"
 msgid "Enter"
 msgstr "Войти"
 
-#: .\templates\statuses\status_list.html:7 .\task_manager\statuses\views.py:26
+#: .\templates\statuses\status_list.html:7 .\task_manager\statuses\views.py:27
 msgid "Create status"
 msgstr "Создать статус"
 
@@ -154,7 +154,7 @@ msgstr "Имя"
 msgid "Create label"
 msgstr "Создать метку"
 
-#: .\task_manager\labels\views.py:30 .\task_manager\statuses\views.py:27
+#: .\task_manager\labels\views.py:30 .\task_manager\statuses\views.py:28
 #: .\task_manager\tasks\views.py:29
 msgid "Create"
 msgstr "Создать"
@@ -199,19 +199,23 @@ msgstr ""
 msgid "Status Name"
 msgstr "Имя"
 
-#: .\task_manager\statuses\views.py:35
+#: .\task_manager\statuses\views.py:24
+msgid "Status created successfully"
+msgstr "Статус успешно создан"
+
+#: .\task_manager\statuses\views.py:36
 msgid "Status edited successfully"
 msgstr "Статус успешно изменен"
 
-#: .\task_manager\statuses\views.py:38
+#: .\task_manager\statuses\views.py:39
 msgid "Edit status"
 msgstr "Изменить статус"
 
-#: .\task_manager\statuses\views.py:47
+#: .\task_manager\statuses\views.py:48
 msgid "Status deleted successfully"
 msgstr "Статус успешно удален"
 
-#: .\task_manager\statuses\views.py:49
+#: .\task_manager\statuses\views.py:50
 msgid "Delete status"
 msgstr "Удалить статус"
 

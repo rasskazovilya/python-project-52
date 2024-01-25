@@ -189,3 +189,19 @@ class UserListTestCase(TestCase):
         self.assertFalse(User.objects.filter(id=1).exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
         self.assertContains(response, "Пользователь успешно удален")
+
+    def test_signout(self):
+        logout_url = reverse_lazy("logout")
+        first_user = User.objects.first()
+        self.client.force_login(first_user)
+
+        response = self.client.get(logout_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse_lazy("home"))
+        self.assertContains(response, "Вы разлогинены")
+
+        self.client.force_login(first_user)
+        response = self.client.post(logout_url, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse_lazy("home"))
+        self.assertContains(response, "Вы разлогинены")

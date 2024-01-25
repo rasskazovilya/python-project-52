@@ -22,7 +22,7 @@ class UserListView(ListView):
 class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("login")
-    success_message = gettext("Пользователь успешно зарегистрирован.")
+    success_message = gettext("User created successfully")
     form_class = UserCreateForm
     extra_context = {
         "title": gettext("Create user"),
@@ -36,14 +36,14 @@ class UserUpdateView(
     template_name = "obj_create.html"
     model = User
     success_url = reverse_lazy("user_list")
-    success_message = gettext("Пользователь успешно изменен.")
+    success_message = gettext("User edited successfully")
     form_class = UserCreateForm
     extra_context = {
         "title": gettext("Edit user"),
         "button_name": gettext("Edit"),
     }
-    same_user_error_message = (
-        "У вас нет прав для изменения другого пользователя."
+    same_user_error_message = gettext(
+        "You do not have rights to edit other user"
     )
 
     def get_same_user(self, pk):
@@ -56,10 +56,10 @@ class UserDeleteView(
     template_name = "confirm_delete.html"
     model = User
     success_url = reverse_lazy("user_list")
-    success_message = gettext("Пользователь успешно удален.")
+    success_message = gettext("User deleted successfully")
     extra_context = {"title": gettext("Delete user")}
-    same_user_error_message = (
-        "У вас нет прав для удаления другого пользователя."
+    same_user_error_message = gettext(
+        "You do not have rights to delete other user"
     )
 
     def get_same_user(self, pk):
@@ -73,9 +73,7 @@ class UserDeleteView(
         if creator_tasks or performer_tasks:
             messages.error(
                 self.request,
-                gettext(
-                    "Невозможно удалить пользователя, потому что он используется"
-                ),
+                gettext("Unable to delete user being in use"),
                 extra_tags="danger",
             )
             return redirect(self.success_url)

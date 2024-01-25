@@ -37,7 +37,7 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "obj_create.html"
     model = Label
     success_url = reverse_lazy("label_list")
-    success_message = gettext("Label created successfully")
+    success_message = gettext("Label edited successfully")
     extra_context = {
         "title": gettext("Edit label"),
         "button_name": gettext("Edit"),

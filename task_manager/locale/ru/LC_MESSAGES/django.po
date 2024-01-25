@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 15:45+0300\n"
+"POT-Creation-Date: 2024-01-25 15:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,12 +57,9 @@ msgstr "Выход"
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
-#: .\templates\confirm_delete.html:9 .\templates\labels\label_list.html:32
-#: .\templates\statuses\status_list.html:32
-#: .\templates\tasks\task_detail.html:45 .\templates\tasks\task_list.html:57
-#: .\templates\users\user_list.html:35
-msgid "Delete"
-msgstr "Удалить"
+#: .\templates\confirm_delete.html:9
+msgid "Yes, delete"
+msgstr "Да, удалить"
 
 #: .\templates\confirm_delete.html:10
 msgid "Cancel"
@@ -102,6 +99,13 @@ msgstr "Дата создания"
 #: .\task_manager\users\views.py:44
 msgid "Edit"
 msgstr "Изменить"
+
+#: .\templates\labels\label_list.html:32
+#: .\templates\statuses\status_list.html:32
+#: .\templates\tasks\task_detail.html:45 .\templates\tasks\task_list.html:57
+#: .\templates\users\user_list.html:35
+msgid "Delete"
+msgstr "Удалить"
 
 #: .\templates\login.html:11
 msgid "Enter"

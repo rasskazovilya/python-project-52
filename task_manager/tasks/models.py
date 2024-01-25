@@ -24,7 +24,7 @@ class Task(models.Model):
         related_name="creator_tasks",
         verbose_name=gettext("Creator"),
     )
-    performer = models.ForeignKey(
+    executor = models.ForeignKey(
         "users.User",
         on_delete=models.PROTECT,
         related_name="performer_tasks",

@@ -15,9 +15,7 @@ def index(request):
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = "login.html"
-    success_message = gettext(
-        "Successfully signed in. Greetings, %(username)s!"
-    )
+    success_message = gettext("Successfully signed in. Greetings!")
     success_url = reverse_lazy("home")
 
 

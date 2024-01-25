@@ -156,7 +156,7 @@ msgstr "Создать метку"
 
 #: .\task_manager\labels\views.py:27
 msgid "Label created successfully"
-msgstr "Метка успешно изменена"
+msgstr "Метка успешно создана"
 
 #: .\task_manager\labels\views.py:31 .\task_manager\statuses\views.py:28
 #: .\task_manager\tasks\views.py:30
@@ -165,7 +165,7 @@ msgstr "Создать"
 
 #: .\task_manager\labels\views.py:40
 msgid "Label edited successfully"
-msgstr "Метка успешно создана"
+msgstr "Метка успешно изменена"
 
 #: .\task_manager\labels\views.py:42
 msgid "Edit label"

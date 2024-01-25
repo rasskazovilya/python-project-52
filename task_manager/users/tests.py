@@ -57,7 +57,7 @@ class UserListTestCase(TestCase):
         self.assertEqual(new_user.username, "JohnDoe")
         self.assertEqual(new_user.pk, 6)
         self.assertTrue(new_user.check_password("secure_password"))
-        self.assertContains(response, "Пользователь успешно зарегистрирован.")
+        self.assertContains(response, "Пользователь успешно зарегистрирован")
 
     def test_password_not_confirmed(self):
         test_user_wrong_password = self.test_user.copy()
@@ -75,7 +75,7 @@ class UserListTestCase(TestCase):
             "Status code should be 200 for not confirmed password",
         )
         page = response.content.decode()
-        self.assertIn("The two password fields didn’t match.", str(page))
+        self.assertIn("Введенные пароли не совпадают.", str(page))
 
     def test_edit_user(self):
         edit_url = reverse_lazy("edit_user", kwargs={"pk": 1})
@@ -106,7 +106,7 @@ class UserListTestCase(TestCase):
         response = self.client.get(other_edit_url, follow=True)
         self.assertContains(
             response,
-            "У вас нет прав для изменения другого пользователя.",
+            "У вас нет прав для изменения другого пользователя",
         )
 
         ## get edit page for current user
@@ -125,13 +125,13 @@ class UserListTestCase(TestCase):
         response = self.client.post(other_edit_url, data=data, follow=True)
         self.assertContains(
             response,
-            "У вас нет прав для изменения другого пользователя.",
+            "У вас нет прав для изменения другого пользователя",
         )
 
         response = self.client.post(edit_url, data=data, follow=True)
         self.assertTrue(User.objects.filter(username="New Test_1").exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
-        self.assertContains(response, "Пользователь успешно изменен.")
+        self.assertContains(response, "Пользователь успешно изменен")
 
     def test_delete_user(self):
         delete_url = reverse_lazy("del_user", kwargs={"pk": 1})
@@ -162,7 +162,7 @@ class UserListTestCase(TestCase):
         response = self.client.get(other_delete_url, follow=True)
         self.assertContains(
             response,
-            "У вас нет прав для удаления другого пользователя.",
+            "У вас нет прав для изменения другого пользователя",
         )
 
         ## make sure that you can not delete user with created tasks
@@ -188,4 +188,4 @@ class UserListTestCase(TestCase):
         response = self.client.post(delete_url, follow=True)
         self.assertFalse(User.objects.filter(id=1).exists())
         self.assertRedirects(response, reverse_lazy("user_list"))
-        self.assertContains(response, "Пользователь успешно удален.")
+        self.assertContains(response, "Пользователь успешно удален")

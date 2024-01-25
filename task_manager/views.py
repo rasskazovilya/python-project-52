@@ -21,5 +21,9 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
-        messages.info(request, gettext("Successfully logged out. See you!"))
-        return super().dispatch(request, *args, **kwargs)
+        response = super().dispatch(request, *args, **kwargs)
+        if not self.request.user.is_authenticated:
+            messages.info(
+                request, gettext("Successfully logged out. See you!")
+            )
+        return response

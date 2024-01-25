@@ -19,7 +19,7 @@ class LoginRequiredMsgMixin(LoginRequiredMixin):
         if not self.request.user.is_authenticated:
             messages.error(
                 self.request,
-                gettext("Вы не авторизованы! Пожалуйста, выполните вход."),
+                gettext("You are unathorized! Please, log in."),
                 extra_tags="danger",
             )
             return redirect(self.login_url)
@@ -29,7 +29,7 @@ class LoginRequiredMsgMixin(LoginRequiredMixin):
 class SameUserCheckMixin(SingleObjectMixin):
     model = User
     same_user_error_message = gettext(
-        "У вас нет прав для изменения/удаления другого пользователя."
+        "You do not have rights to edit/delete other user"
     )
     success_url = ""
 

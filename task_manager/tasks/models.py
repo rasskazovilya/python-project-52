@@ -4,7 +4,7 @@ from django.utils.translation import gettext
 # Create your models here.
 class Task(models.Model):
     name = models.CharField(
-        max_length=255, unique=True, verbose_name=gettext("Name")
+        max_length=255, unique=True, verbose_name=gettext("Task Name")
     )
     description = models.TextField(
         blank=True, verbose_name=gettext("Description")

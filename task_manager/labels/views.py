@@ -36,7 +36,7 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "obj_create.html"
     model = Label
     success_url = reverse_lazy("label_list")
-    success_message = gettext("Метка успешно изменена.")
+    success_message = gettext("Label created successfully")
     extra_context = {
         "title": gettext("Edit label"),
         "button_name": gettext("Edit"),
@@ -47,7 +47,7 @@ class LabelUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 class LabelDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("label_list")
-    success_message = gettext("Метка успешно удалена.")
+    success_message = gettext("Label deleted successfully")
     model = Label
     extra_context = {"title": gettext("Delete label")}
 
@@ -57,9 +57,7 @@ class LabelDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
         if del_label.tasks.exists():
             messages.error(
                 self.request,
-                gettext(
-                    "Невозможно удалить метку, потому что она используется"
-                ),
+                gettext("Unable to delete label as it is being in use"),
                 extra_tags="danger",
             )
             return redirect(self.success_url)

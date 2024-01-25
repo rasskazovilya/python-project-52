@@ -38,7 +38,7 @@ class TaskCreateView(LoginRequiredMsgMixin, CreateView):
 class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
-    success_message = gettext("Задача успешно изменена.")
+    success_message = gettext("Task edited successfully")
     model = Task
     extra_context = {
         "title": gettext("Edit task"),
@@ -52,10 +52,10 @@ class TaskDeleteView(
 ):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("task_list")
-    success_message = gettext("Задача успешно удалена.")
+    success_message = gettext("Task deleted successfully")
     model = Task
     extra_context = {"title": gettext("Delete task")}
-    same_user_error_message = gettext("Задачу может удалить только ее автор")
+    same_user_error_message = gettext("Task can be deleted only by its author")
 
     def delete(self, *args, **kwargs):
         response = super().delete(*args, **kwargs)

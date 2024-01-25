@@ -11,12 +11,12 @@ class TaskFilter(django_filters.FilterSet):
         fields = ["status", "performer"]
 
     labels = django_filters.ModelChoiceFilter(
-        label=gettext("Метка"), queryset=Label.objects.all()
+        label=gettext("Label"), queryset=Label.objects.all()
     )
     creator = django_filters.BooleanFilter(
         method="filter_creator_tasks",
         widget=forms.CheckboxInput,
-        label=gettext("Только свои задачи"),
+        label=gettext("Only own tasks"),
     )
 
     def filter_creator_tasks(self, queryset, name, value):

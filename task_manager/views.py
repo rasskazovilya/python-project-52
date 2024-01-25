@@ -22,12 +22,12 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy("home")
 
     def dispatch(self, request, *args, **kwargs):
-        if request.method == "GET":
-            return HttpResponseNotAllowed("POST")
-        else:
-            response = super().dispatch(request, *args, **kwargs)
-            if not request.user.is_authenticated:
-                messages.info(
-                    request, gettext("Successfully logged out. See you!")
-                )
-            return response
+        # if request.method == "GET":
+        #     return HttpResponseNotAllowed("POST")
+        # else:
+        response = super().dispatch(request, *args, **kwargs)
+        if not request.user.is_authenticated:
+            messages.info(
+                request, gettext("Successfully logged out. See you!")
+            )
+        return response

@@ -6,7 +6,7 @@
 <p>{% translate 'Are you sure you want to delete' %} {{ object }}?</p>
 <form method="post">
     {% csrf_token %}
-    <input class="btn btn-danger" type="submit" value="{% translate 'Delete' %}">
+    <input class="btn btn-danger" type="submit" value="{% translate 'Yes, delete' %}">
     <input class="btn btn-primary" type="button" value="{% translate 'Cancel' %}" onclick="history.back();">
 </form>
 {% endblock %}

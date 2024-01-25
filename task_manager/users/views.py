@@ -17,6 +17,7 @@ class UserListView(ListView):
     ordering = "id"
     paginate_by = 10
     context_object_name = "users"
+    extra_context = {"title": gettext("Users")}
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):

@@ -20,9 +20,10 @@ class TaskListView(LoginRequiredMsgMixin, FilterView):
     extra_context = {"title": gettext("Tasks")}
 
 
-class TaskCreateView(LoginRequiredMsgMixin, CreateView):
+class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
+    success_message = gettext("Task created successfully")
     model = Task
     extra_context = {
         "title": gettext("Create task"),

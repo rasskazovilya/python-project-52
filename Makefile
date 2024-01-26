@@ -12,6 +12,11 @@ start:
 test:
 	poetry run python manage.py test
 
+lint:
+	poetry run flake8 .
+
+test-lint: test lint
+
 test-coverage:
 	poetry run coverage run manage.py test
 	poetry run coverage xml

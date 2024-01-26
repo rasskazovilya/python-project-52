@@ -3,10 +3,10 @@
 {% load i18n %}
 
 {% block content %}
-<h1 class="my-4">{{ title }}</h1>
+<h1 class="my-4">{% translate title %}</h1>
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <input class="btn btn-primary" type="submit" value="{{button_name}}">
+    <input class="btn btn-primary" type="submit" value="{% translate button_name %}">
 </form>
 {% endblock %}

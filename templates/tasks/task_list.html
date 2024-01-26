@@ -4,8 +4,8 @@
 
 {% block content %}
 <div>
-    <h1 class="my-4">{{ title }}</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate "Create task" %}</a>
+    <h1 class="my-4">{% translate title %}</h1>
+    <a class="btn btn-primary mb-3" href="{% url 'create_task'%}">{% translate button_name %}</a>
     
     {% block filter %}
     <div class="card mb-3">

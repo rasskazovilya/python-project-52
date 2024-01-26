@@ -116,7 +116,8 @@ BOOTSTRAP5 = {
     },
     # The complete URL to the Bootstrap CSS theme file (None means no theme).
     "theme_url": None,
-    # Put JavaScript in the HEAD section of the HTML document (only relevant if you use bootstrap5.html).
+    # Put JavaScript in the HEAD section of the HTML document
+    # (only relevant if you use bootstrap5.html).
     "javascript_in_head": False,
     # Wrapper class for non-inline fields.
     # The default value "mb-3" is the spacing as used by Bootstrap 5 example code.
@@ -136,9 +137,11 @@ BOOTSTRAP5 = {
     "required_css_class": "",
     # Class to indicate field has one or more errors (better to set this in your Django form).
     "error_css_class": "",
-    # Class to indicate success, meaning the field has valid input (better to set this in your Django form).
+    # Class to indicate success, meaning the field has valid input
+    # (better to set this in your Django form).
     "success_css_class": "",
-    # Enable or disable Bootstrap 5 server side validation classes (separate from the indicator classes above).
+    # Enable or disable Bootstrap 5 server side validation classes
+    # (separate from the indicator classes above).
     "server_side_validation": True,
     # Renderers (only set these if you have studied the source and understand the inner workings).
     "formset_renderers": {
@@ -166,9 +169,7 @@ ROLLBAR = {
 
 if "postgres" in DATABASE_URL:
     DATABASES = {
-        "default": dj_database_url.parse(
-            DATABASE_URL, conn_max_age=600, conn_health_checks=True
-        )
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, conn_health_checks=True)
     }
 else:
     print("Postgres URL not found, using sqlite instead")

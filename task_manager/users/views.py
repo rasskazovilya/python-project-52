@@ -16,7 +16,7 @@ class UserListView(ListView):
     ordering = "id"
     paginate_by = 10
     context_object_name = "users"
-    extra_context = {"title": gettext("Users")}
+    extra_context = {"title": "Users"}
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
@@ -25,42 +25,34 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_message = gettext("User created successfully")
     form_class = UserCreateForm
     extra_context = {
-        "title": gettext("Create user"),
-        "button_name": gettext("Sign up"),
+        "title": "Create user",
+        "button_name": "Sign up",
     }
 
 
-class UserUpdateView(
-    LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMixin, UpdateView
-):
+class UserUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMixin, UpdateView):
     template_name = "obj_create.html"
     model = User
     success_url = reverse_lazy("user_list")
     success_message = gettext("User edited successfully")
     form_class = UserCreateForm
     extra_context = {
-        "title": gettext("Edit user"),
-        "button_name": gettext("Edit"),
+        "title": "Edit user",
+        "button_name": "Edit",
     }
-    same_user_error_message = gettext(
-        "You do not have rights to edit other user"
-    )
+    same_user_error_message = gettext("You do not have rights to edit other user")
 
     def get_same_user(self, pk):
         return self.model.objects.get(pk=pk)
 
 
-class UserDeleteView(
-    LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMixin, DeleteView
-):
+class UserDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMixin, DeleteView):
     template_name = "confirm_delete.html"
     model = User
     success_url = reverse_lazy("user_list")
     success_message = gettext("User deleted successfully")
-    extra_context = {"title": gettext("Delete user")}
-    same_user_error_message = gettext(
-        "You do not have rights to delete other user"
-    )
+    extra_context = {"title": "Delete user"}
+    same_user_error_message = gettext("You do not have rights to delete other user")
 
     def get_same_user(self, pk):
         return self.model.objects.get(pk=pk)

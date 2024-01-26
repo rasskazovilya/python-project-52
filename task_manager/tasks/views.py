@@ -17,7 +17,7 @@ class TaskListView(LoginRequiredMsgMixin, FilterView):
     ordering = "id"
     filterset_class = TaskFilter
     context_object_name = "tasks"
-    extra_context = {"title": gettext("Tasks")}
+    extra_context = {"title": "Tasks", "button_name": "Create task"}
 
 
 class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
@@ -26,8 +26,8 @@ class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     success_message = gettext("Task created successfully")
     model = Task
     extra_context = {
-        "title": gettext("Create task"),
-        "button_name": gettext("Create"),
+        "title": "Create task",
+        "button_name": "Create",
     }
     fields = ["name", "description", "status", "executor", "labels"]
 
@@ -42,20 +42,18 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_message = gettext("Task edited successfully")
     model = Task
     extra_context = {
-        "title": gettext("Edit task"),
-        "button_name": gettext("Edit"),
+        "title": "Edit task",
+        "button_name": "Edit",
     }
     fields = ["name", "description", "status", "executor", "labels"]
 
 
-class TaskDeleteView(
-    LoginRequiredMsgMixin, SameUserCheckMixin, SuccessMessageMixin, DeleteView
-):
+class TaskDeleteView(LoginRequiredMsgMixin, SameUserCheckMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("task_list")
     success_message = gettext("Task deleted successfully")
     model = Task
-    extra_context = {"title": gettext("Delete task")}
+    extra_context = {"title": "Delete task"}
     same_user_error_message = gettext("Task can be deleted only by its author")
 
     def delete(self, *args, **kwargs):
@@ -72,4 +70,4 @@ class TaskDetailView(LoginRequiredMsgMixin, DetailView):
     template_name = "tasks/task_detail.html"
     context_object_name = "task"
     model = Task
-    extra_context = {"title": gettext("Task detail")}
+    extra_context = {"title": "Task detail"}

@@ -16,8 +16,8 @@ class LabelListView(LoginRequiredMsgMixin, ListView):
     ordering = "id"
     context_object_name = "labels"
     extra_context = {
-        "title": gettext("Labels"),
-        "button_name": gettext("Create label"),
+        "title": "Labels",
+        "button_name": "Create label",
     }
 
 

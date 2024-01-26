@@ -14,7 +14,10 @@ class StatusListView(LoginRequiredMsgMixin, ListView):
     model = Status
     ordering = "id"
     context_object_name = "statuses"
-    extra_context = {"title": gettext("Statuses")}
+    extra_context = {
+        "title": "Statuses",
+        "button_name": "Create status",
+    }
 
 
 class StatusCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
@@ -23,8 +26,8 @@ class StatusCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     success_message = gettext("Status created successfully")
     model = Status
     extra_context = {
-        "title": gettext("Create status"),
-        "button_name": gettext("Create"),
+        "title": "Create status",
+        "button_name": "Create",
     }
     fields = ["name"]
 
@@ -35,8 +38,8 @@ class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     success_message = gettext("Status edited successfully")
     model = Status
     extra_context = {
-        "title": gettext("Edit status"),
-        "button_name": gettext("Edit"),
+        "title": "Edit status",
+        "button_name": "Edit",
     }
     fields = ["name"]
 
@@ -46,7 +49,7 @@ class StatusDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy("status_list")
     success_message = gettext("Status deleted successfully")
     model = Status
-    extra_context = {"title": gettext("Delete status")}
+    extra_context = {"title": "Delete status"}
 
     def delete(self, *args, **kwargs):
         response = super().delete(*args, **kwargs)

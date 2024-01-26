@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django_filters.views import FilterView
 from task_manager.mixins import LoginRequiredMsgMixin, SameUserCheckMixin
@@ -23,11 +23,11 @@ class TaskListView(LoginRequiredMsgMixin, FilterView):
 class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
-    success_message = gettext("Task created successfully")
+    success_message = gettext_lazy("Task created successfully")
     model = Task
     extra_context = {
-        "title": "Create task",
-        "button_name": "Create",
+        "title": gettext_lazy("Create task"),
+        "button_name": gettext_lazy("Create"),
     }
     fields = ["name", "description", "status", "executor", "labels"]
 
@@ -39,11 +39,11 @@ class TaskCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
 class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("task_list")
-    success_message = gettext("Task edited successfully")
+    success_message = gettext_lazy("Task edited successfully")
     model = Task
     extra_context = {
-        "title": "Edit task",
-        "button_name": "Edit",
+        "title": gettext_lazy("Edit task"),
+        "button_name": gettext_lazy("Edit"),
     }
     fields = ["name", "description", "status", "executor", "labels"]
 
@@ -51,10 +51,10 @@ class TaskUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMsgMixin, SameUserCheckMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("task_list")
-    success_message = gettext("Task deleted successfully")
+    success_message = gettext_lazy("Task deleted successfully")
     model = Task
-    extra_context = {"title": "Delete task"}
-    same_user_error_message = gettext("Task can be deleted only by its author")
+    extra_context = {"title": gettext_lazy("Delete task")}
+    same_user_error_message = gettext_lazy("Task can be deleted only by its author")
 
     def delete(self, *args, **kwargs):
         response = super().delete(*args, **kwargs)
@@ -70,4 +70,4 @@ class TaskDetailView(LoginRequiredMsgMixin, DetailView):
     template_name = "tasks/task_detail.html"
     context_object_name = "task"
     model = Task
-    extra_context = {"title": "Task detail"}
+    extra_context = {"title": gettext_lazy("Task detail")}

@@ -3,7 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.users.forms import UserCreateForm
 from task_manager.users.models import User
@@ -16,17 +16,17 @@ class UserListView(ListView):
     ordering = "id"
     paginate_by = 10
     context_object_name = "users"
-    extra_context = {"title": "Users"}
+    extra_context = {"title": gettext_lazy("Users")}
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("login")
-    success_message = gettext("User created successfully")
+    success_message = gettext_lazy("User created successfully")
     form_class = UserCreateForm
     extra_context = {
-        "title": "Create user",
-        "button_name": "Sign up",
+        "title": gettext_lazy("Create user"),
+        "button_name": gettext_lazy("Sign up"),
     }
 
 
@@ -34,13 +34,13 @@ class UserUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMi
     template_name = "obj_create.html"
     model = User
     success_url = reverse_lazy("user_list")
-    success_message = gettext("User edited successfully")
+    success_message = gettext_lazy("User edited successfully")
     form_class = UserCreateForm
     extra_context = {
-        "title": "Edit user",
-        "button_name": "Edit",
+        "title": gettext_lazy("Edit user"),
+        "button_name": gettext_lazy("Edit"),
     }
-    same_user_error_message = gettext("You do not have rights to edit other user")
+    same_user_error_message = gettext_lazy("You do not have rights to edit other user")
 
     def get_same_user(self, pk):
         return self.model.objects.get(pk=pk)
@@ -50,9 +50,9 @@ class UserDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMi
     template_name = "confirm_delete.html"
     model = User
     success_url = reverse_lazy("user_list")
-    success_message = gettext("User deleted successfully")
-    extra_context = {"title": "Delete user"}
-    same_user_error_message = gettext("You do not have rights to delete other user")
+    success_message = gettext_lazy("User deleted successfully")
+    extra_context = {"title": gettext_lazy("Delete user")}
+    same_user_error_message = gettext_lazy("You do not have rights to delete other user")
 
     def get_same_user(self, pk):
         return self.model.objects.get(pk=pk)
@@ -65,7 +65,7 @@ class UserDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, SameUserCheckMi
         if creator_tasks or performer_tasks:
             messages.error(
                 self.request,
-                gettext("Unable to delete user being in use"),
+                gettext_lazy("Unable to delete user being in use"),
                 extra_tags="danger",
             )
             return redirect(self.success_url)

@@ -1,7 +1,7 @@
 import django_filters
 from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 from django import forms
 
 
@@ -11,12 +11,12 @@ class TaskFilter(django_filters.FilterSet):
         fields = ["status", "executor"]
 
     labels = django_filters.ModelChoiceFilter(
-        label=gettext("Label"), queryset=Label.objects.all()
+        label=gettext_lazy("Label"), queryset=Label.objects.all()
     )
     creator = django_filters.BooleanFilter(
         method="filter_creator_tasks",
         widget=forms.CheckboxInput,
-        label=gettext("Only own tasks"),
+        label=gettext_lazy("Only own tasks"),
     )
 
     def filter_creator_tasks(self, queryset, name, value):

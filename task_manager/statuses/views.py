@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .models import Status
@@ -15,19 +15,19 @@ class StatusListView(LoginRequiredMsgMixin, ListView):
     ordering = "id"
     context_object_name = "statuses"
     extra_context = {
-        "title": "Statuses",
-        "button_name": "Create status",
+        "title": gettext_lazy("Statuses"),
+        "button_name": gettext_lazy("Create status"),
     }
 
 
 class StatusCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("status_list")
-    success_message = gettext("Status created successfully")
+    success_message = gettext_lazy("Status created successfully")
     model = Status
     extra_context = {
-        "title": "Create status",
-        "button_name": "Create",
+        "title": gettext_lazy("Create status"),
+        "button_name": gettext_lazy("Create"),
     }
     fields = ["name"]
 
@@ -35,11 +35,11 @@ class StatusCreateView(LoginRequiredMsgMixin, SuccessMessageMixin, CreateView):
 class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
     template_name = "obj_create.html"
     success_url = reverse_lazy("status_list")
-    success_message = gettext("Status edited successfully")
+    success_message = gettext_lazy("Status edited successfully")
     model = Status
     extra_context = {
-        "title": "Edit status",
-        "button_name": "Edit",
+        "title": gettext_lazy("Edit status"),
+        "button_name": gettext_lazy("Edit"),
     }
     fields = ["name"]
 
@@ -47,9 +47,9 @@ class StatusUpdateView(LoginRequiredMsgMixin, SuccessMessageMixin, UpdateView):
 class StatusDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     template_name = "confirm_delete.html"
     success_url = reverse_lazy("status_list")
-    success_message = gettext("Status deleted successfully")
+    success_message = gettext_lazy("Status deleted successfully")
     model = Status
-    extra_context = {"title": "Delete status"}
+    extra_context = {"title": gettext_lazy("Delete status")}
 
     def delete(self, *args, **kwargs):
         response = super().delete(*args, **kwargs)

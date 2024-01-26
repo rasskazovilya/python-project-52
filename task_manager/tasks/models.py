@@ -1,41 +1,35 @@
 from django.db import models
-from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy
 
 
 # Create your models here.
 class Task(models.Model):
-    name = models.CharField(
-        max_length=255, unique=True, verbose_name=gettext("Task Name")
-    )
-    description = models.TextField(
-        blank=True, verbose_name=gettext("Description")
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name=gettext("Created at")
-    )
+    name = models.CharField(max_length=255, unique=True, verbose_name=gettext_lazy("Task Name"))
+    description = models.TextField(blank=True, verbose_name=gettext_lazy("Description"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=gettext_lazy("Created at"))
     status = models.ForeignKey(
         "statuses.Status",
         on_delete=models.PROTECT,
         related_name="tasks",
-        verbose_name=gettext("Status"),
+        verbose_name=gettext_lazy("Status"),
     )
     creator = models.ForeignKey(
         "users.User",
         on_delete=models.PROTECT,
         related_name="creator_tasks",
-        verbose_name=gettext("Creator"),
+        verbose_name=gettext_lazy("Creator"),
     )
     executor = models.ForeignKey(
         "users.User",
         on_delete=models.PROTECT,
         related_name="performer_tasks",
-        verbose_name=gettext("Performer"),
+        verbose_name=gettext_lazy("Performer"),
     )
     labels = models.ManyToManyField(
         "labels.Label",
         blank=True,
         through="TaskLabelRelation",
-        verbose_name=gettext("Labels"),
+        verbose_name=gettext_lazy("Labels"),
         related_name="tasks",
     )
 

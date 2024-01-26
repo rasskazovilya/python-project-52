@@ -1,11 +1,9 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext
 from django.views.generic.base import TemplateView
-from django.http import HttpResponseNotAllowed
 
 
 class IndexView(TemplateView):

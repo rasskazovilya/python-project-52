@@ -3,6 +3,7 @@ from .models import Status
 from task_manager.users.models import User
 from django.urls import reverse_lazy
 
+
 # Create your tests here.
 class StatusTestCase(TestCase):
     fixtures = ["statuses.json"]

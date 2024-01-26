@@ -23,6 +23,7 @@ class UserCreateForm(UserCreationForm):
         ]
         help_texts = {
             "username": gettext(
-                "Required. Less than 150 characters. Letters, numbers and @/./+/- only."
+                "Required. Less than 150 characters. \
+                Letters, numbers and @/./+/- only."
             ),
         }

@@ -2,7 +2,6 @@ from django.test import TestCase
 from task_manager.users.models import User
 from django.urls import reverse_lazy
 
-# TODO: Test translation using this link: https://docs.djangoproject.com/en/5.0/topics/testing/tools/#setting-the-language
 
 # Create your tests here.
 class UserListTestCase(TestCase):
@@ -98,28 +97,28 @@ class UserListTestCase(TestCase):
         first_user = User.objects.first()
         self.client.force_login(first_user)
 
-        ## try to get edit page for another user
+        # try to get edit page for another user
         response = self.client.get(other_edit_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy("user_list"))
-        ## check if error message about not authorized user is in place
+        # check if error message about not authorized user is in place
         response = self.client.get(other_edit_url, follow=True)
         self.assertContains(
             response,
             "У вас нет прав для изменения другого пользователя",
         )
 
-        ## get edit page for current user
+        # get edit page for current user
         response = self.client.get(edit_url)
         self.assertEqual(response.status_code, 200)
 
-        ## edit current user
+        # edit current user
         data = {
-            "username": f"New Test_1",
-            "first_name": f"New Test_first_name_1",
-            "last_name": f"New Test_last_name_1",
-            "password1": f"new_pass1",
-            "password2": f"new_pass1",
+            "username": "New Test_1",
+            "first_name": "New Test_first_name_1",
+            "last_name": "New Test_last_name_1",
+            "password1": "new_pass1",
+            "password2": "new_pass1",
         }
 
         response = self.client.post(other_edit_url, data=data, follow=True)
@@ -154,18 +153,18 @@ class UserListTestCase(TestCase):
         first_user = User.objects.first()
         self.client.force_login(first_user)
 
-        ## try to get edit page for another user
+        # try to get edit page for another user
         response = self.client.get(other_delete_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy("user_list"))
-        ## check if error message about not authorized user is in place
+        # check if error message about not authorized user is in place
         response = self.client.get(other_delete_url, follow=True)
         self.assertContains(
             response,
             "У вас нет прав для изменения другого пользователя",
         )
 
-        ## make sure that you can not delete user with created tasks
+        # make sure that you can not delete user with created tasks
         second_user = User.objects.get(id=2)
         self.client.force_login(second_user)
         print(second_user.creator_tasks.filter(creator=second_user).all())
@@ -178,12 +177,12 @@ class UserListTestCase(TestCase):
             "Невозможно удалить пользователя, потому что он используется",
         )
 
-        ## get delete page for current user
+        # get delete page for current user
         self.client.force_login(first_user)
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 200)
 
-        ## delete current user
+        # delete current user
         print(first_user.creator_tasks.filter(creator=first_user).all())
         response = self.client.post(delete_url, follow=True)
         self.assertFalse(User.objects.filter(id=1).exists())

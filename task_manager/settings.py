@@ -97,7 +97,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "task_manager.wsgi.application"
 
-## Default settings for django-bootstrap5
+# Default settings for django-bootstrap5
 BOOTSTRAP5 = {
     # The complete URL to the Bootstrap CSS file.
     # Note that a URL can be either a string
@@ -152,7 +152,7 @@ BOOTSTRAP5 = {
     },
 }
 
-## Default settings for Rollbar
+# Default settings for Rollbar
 ROLLBAR = {
     "access_token": ROLLBAR_TOKEN,
     "environment": "development" if DEBUG else "production",

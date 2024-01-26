@@ -8,7 +8,6 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from task_manager.users.forms import UserCreateForm
 from task_manager.users.models import User
 from task_manager.mixins import LoginRequiredMsgMixin, SameUserCheckMixin
-from django.core.exceptions import PermissionDenied
 
 
 class UserListView(ListView):

@@ -1,12 +1,9 @@
 from django.test import TestCase
-from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 from task_manager.users.models import User
 from task_manager.tasks.models import Task
 from django.urls import reverse_lazy
 
-from .filter import TaskFilter
-from .views import TaskListView
 
 # Create your tests here.
 class TaskTestCase(TestCase):
@@ -75,7 +72,6 @@ class TaskTestCase(TestCase):
 
     def test_edit_task(self):
         edit_url = reverse_lazy("edit_task", kwargs={"pk": 1})
-        other_edit_url = reverse_lazy("edit_task", kwargs={"pk": 3})
 
         # check if unathorized user can not edit tasks
         response = self.client.post(

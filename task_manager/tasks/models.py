@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext
 
+
 # Create your models here.
 class Task(models.Model):
     name = models.CharField(

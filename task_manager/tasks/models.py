@@ -22,6 +22,7 @@ class Task(models.Model):
     executor = models.ForeignKey(
         "users.User",
         blank=True,
+        null=True,
         on_delete=models.PROTECT,
         related_name="performer_tasks",
         verbose_name=gettext_lazy("Performer"),

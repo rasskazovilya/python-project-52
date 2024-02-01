@@ -18,16 +18,9 @@ class StatusTestCase(TestCase):
         User.objects.create(**self.test_user)
 
         self.test_status = {
-            "name": "Done",
+            "name": "Processing",
         }
 
-        self.test_statuses = []
-
-        for i in range(5):
-            status = {
-                "name": f"Test_{i}",
-            }
-            self.test_statuses.append(status)
         return super().setUp()
 
     def test_status_list(self):
@@ -38,8 +31,7 @@ class StatusTestCase(TestCase):
         user = User.objects.first()
         self.client.force_login(user)
         response = self.client.get(reverse_lazy("status_list"))
-        for status in self.test_statuses:
-            self.assertContains(response, status["name"])
+        self.assertContains(response, "Done")
 
     def test_add_status(self):
         # check if unathorized user can not create statuses
@@ -67,9 +59,7 @@ class StatusTestCase(TestCase):
         edit_url = reverse_lazy("edit_status", kwargs={"pk": 1})
 
         # check if unathorized user can not edit statuses
-        response = self.client.post(
-            edit_url, data=self.test_status, format="json"
-        )
+        response = self.client.post(edit_url, data=self.test_status, format="json")
         self.assertEqual(302, response.status_code)
         self.assertRedirects(response, reverse_lazy("login"))
 
@@ -77,9 +67,7 @@ class StatusTestCase(TestCase):
         user = User.objects.first()
         self.client.force_login(user)
         # change status name
-        response = self.client.post(
-            edit_url, data=self.test_status, format="json", follow=True
-        )
+        response = self.client.post(edit_url, data=self.test_status, format="json", follow=True)
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("status_list"))
@@ -87,12 +75,13 @@ class StatusTestCase(TestCase):
 
         # check if status has changed
         edited_status = Status.objects.get(id=1)
-        self.assertEqual(edited_status.name, "Done")
+        self.assertEqual(edited_status.name, "Processing")
         self.assertNotEqual(edited_status.name, "Test_1")
 
     def test_delete_status(self):
         del_url = reverse_lazy("del_status", kwargs={"pk": 1})
-        deleted_status = Status.objects.get(id=1)
+        other_del_url = reverse_lazy("del_status", kwargs={"pk": 2})
+        deleted_status = Status.objects.get(id=2)
 
         # check if unathorized user can not edit statuses
         response = self.client.post(del_url)
@@ -102,8 +91,15 @@ class StatusTestCase(TestCase):
         # login user
         user = User.objects.first()
         self.client.force_login(user)
-        # delete status
+        # try to delete status
         response = self.client.post(del_url, follow=True)
+        # check if redirect is correct and error message is showing
+        self.assertEqual(200, response.status_code)
+        self.assertRedirects(response, reverse_lazy("status_list"))
+        self.assertContains(response, "Невозможно удалить статус, потому что он используется")
+
+        # try to delete status with no tasks
+        response = self.client.post(other_del_url, follow=True)
         # check if redirect is correct and success message is showing
         self.assertEqual(200, response.status_code)
         self.assertRedirects(response, reverse_lazy("status_list"))

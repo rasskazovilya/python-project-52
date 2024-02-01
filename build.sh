@@ -6,4 +6,4 @@ poetry install
 
 # poetry run python manage.py collectstatic --no-input
 poetry run python manage.py migrate
-poetry run django-admin createsuperuser --no-input
+poetry run python manage.py createsuperuser --no-input

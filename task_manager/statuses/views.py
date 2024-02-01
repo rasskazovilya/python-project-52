@@ -3,6 +3,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.shortcuts import redirect
 
 from .models import Status
 from task_manager.mixins import LoginRequiredMsgMixin
@@ -52,6 +53,15 @@ class StatusDeleteView(LoginRequiredMsgMixin, SuccessMessageMixin, DeleteView):
     extra_context = {"title": gettext_lazy("Delete status")}
 
     def delete(self, *args, **kwargs):
+        del_status = self.model.objects.get(pk=kwargs["pk"])
+
+        if del_status.tasks.exists():
+            messages.error(
+                self.request,
+                gettext_lazy("Unable to delete status as it is being in use"),
+                extra_tags="danger",
+            )
+            return redirect(self.success_url)
         response = super().delete(*args, **kwargs)
         messages.success(self.request, self.success_message)
         return response

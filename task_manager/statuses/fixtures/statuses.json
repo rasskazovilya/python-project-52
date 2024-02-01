@@ -3,7 +3,7 @@
         "model": "statuses.status",
         "pk": 1,
         "fields": {
-            "name": "Test_0",
+            "name": "Done",
             "created_at": "1900-01-01T00:00:00Z"
         }
     },
@@ -11,31 +11,75 @@
         "model": "statuses.status",
         "pk": 2,
         "fields": {
-            "name": "Test_1",
+            "name": "Test_Status_1",
             "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
-        "model": "statuses.status",
+        "model": "tasks.task",
+        "pk": 1,
+        "fields": {
+            "name": "Task_0",
+            "description": "Test description 0",
+            "status": 1,
+            "creator": 2,
+            "executor": 2,
+            "labels": [],
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "username": "Test_0",
+            "first_name": "Test_first_name_0",
+            "last_name": "Test_last_name_0",
+            "password": "pass0",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 2,
+        "fields": {
+            "username": "Test_1",
+            "first_name": "Test_first_name_1",
+            "last_name": "Test_last_name_1",
+            "password": "pass1",
+            "created_at": "1900-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "users.user",
         "pk": 3,
         "fields": {
-            "name": "Test_2",
+            "username": "Test_2",
+            "first_name": "Test_first_name_2",
+            "last_name": "Test_last_name_2",
+            "password": "pass2",
             "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
-        "model": "statuses.status",
+        "model": "users.user",
         "pk": 4,
         "fields": {
-            "name": "Test_3",
+            "username": "Test_3",
+            "first_name": "Test_first_name_3",
+            "last_name": "Test_last_name_3",
+            "password": "pass3",
             "created_at": "1900-01-01T00:00:00Z"
         }
     },
     {
-        "model": "statuses.status",
+        "model": "users.user",
         "pk": 5,
         "fields": {
-            "name": "Test_4",
+            "username": "Test_4",
+            "first_name": "Test_first_name_4",
+            "last_name": "Test_last_name_4",
+            "password": "pass4",
             "created_at": "1900-01-01T00:00:00Z"
         }
     }
